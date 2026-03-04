@@ -32,6 +32,86 @@ async function createHarness() {
 }
 
 describe('tool integration', () => {
+  it('lists MCP resources', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.listResources();
+      const uris = result.resources.map((resource) => resource.uri);
+
+      expect(uris).toContain('tabla://glossary');
+      expect(uris).toContain('tabla://taals');
+      expect(uris).toContain('tabla://certification-boards');
+      expect(uris).toContain('tabla://certification-level-summaries');
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
+  it('reads glossary MCP resource', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.readResource({ uri: 'tabla://glossary' });
+      expect(result.contents.length).toBeGreaterThan(0);
+
+      const first = result.contents[0];
+      if (!('text' in first)) {
+        throw new Error('Expected text content in glossary resource');
+      }
+
+      const payload = JSON.parse(first.text) as {
+        data: { total_entries: number; entries: unknown[]; categories: string[] };
+      };
+      expect(payload.data.total_entries).toBeGreaterThan(0);
+      expect(payload.data.entries.length).toBeGreaterThan(0);
+      expect(payload.data.categories.length).toBeGreaterThan(0);
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
+  it('lists MCP prompts', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.listPrompts();
+      const names = result.prompts.map((prompt) => prompt.name);
+
+      expect(names).toContain('cert_prep_plan');
+      expect(names).toContain('weekly_practice_reset');
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
+  it('gets cert_prep_plan prompt', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.getPrompt({
+        name: 'cert_prep_plan',
+        arguments: {
+          board: 'ABGMVM',
+          certification_level: 'MADHYAMA_PRATHAM',
+          days_per_week: '5',
+          minutes_per_day: '45',
+        },
+      });
+
+      expect(result.messages.length).toBeGreaterThan(0);
+      const first = result.messages[0];
+      if (first.content.type !== 'text') {
+        throw new Error('Expected text content from cert_prep_plan prompt');
+      }
+
+      expect(first.content.text).toContain('assessment_builder');
+      expect(first.content.text).toContain('practice_coach');
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
   it('calls glossary_lookup', async () => {
     const { server, client } = await createHarness();
     try {

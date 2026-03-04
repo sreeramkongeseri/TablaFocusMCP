@@ -3,6 +3,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { AppContext } from './context.js';
+import { registerPrompts } from './prompts/registerPrompts.js';
+import { registerResources } from './resources/registerResources.js';
 import { registerAssessmentBuilderTool } from './tools/assessmentBuilder.js';
 import { registerCertificationCatalogTool } from './tools/certificationCatalog.js';
 import { registerComposeBuilderTool } from './tools/composeBuilder.js';
@@ -42,6 +44,9 @@ export function buildServer(context: AppContext): McpServer {
     name: 'TablaFocusMCP',
     version: SERVER_VERSION,
   });
+
+  registerResources(server, context);
+  registerPrompts(server);
 
   registerGlossaryLookupTool(server, context);
   registerComposeBuilderTool(server, context);

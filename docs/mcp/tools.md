@@ -1,5 +1,7 @@
 # MCP Tool List
 
+For MCP resources and prompts, see `docs/mcp/resources.md` and `docs/mcp/prompts.md`.
+
 All tools return a common envelope:
 
 - `meta`: tool metadata (`coverage_status`, `confidence`, `source`, `last_verified_at`)

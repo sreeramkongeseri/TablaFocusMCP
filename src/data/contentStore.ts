@@ -92,6 +92,10 @@ export class ContentStore {
     return filtered.slice(0, Math.max(1, limit));
   }
 
+  listGlossaryEntries(): GlossaryEntry[] {
+    return this.glossary;
+  }
+
   listGlossaryCategories(): string[] {
     return [...new Set(this.glossary.map((entry) => entry.category))].sort();
   }

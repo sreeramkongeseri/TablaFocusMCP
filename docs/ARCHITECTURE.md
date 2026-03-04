@@ -3,15 +3,17 @@
 ## Runtime flow
 
 1. `src/index.ts` loads configuration and starts MCP stdio transport.
-2. `src/server.ts` registers tool handlers.
-3. Tool handlers call `ContentStore` + domain engines.
-4. Responses are wrapped in common envelope (`meta` + `data`).
+2. `src/server.ts` registers MCP resources, prompts, and tools.
+3. Resource and tool handlers call `ContentStore` + domain engines.
+4. Tool responses are wrapped in common envelope (`meta` + `data`).
 
 ## Core components
 
 - `src/config.ts`: environment-backed runtime configuration.
 - `src/data/contentStore.ts`: data loading, normalization, and query APIs.
 - `src/engines/*`: deterministic business logic.
+- `src/resources/*`: MCP resource registration and dataset payload contracts.
+- `src/prompts/*`: MCP prompt templates for guided workflows.
 - `src/tools/*`: MCP tool input validation + response contracts.
 - `src/toolRuntime.ts`: success/error envelopes + guard wrapper.
 - `src/rateLimiter.ts`: per-tool in-memory throttling.
@@ -29,6 +31,13 @@
 - Composition tools: `compose_builder`, `composition_validator`.
 - Curriculum/assessment tools: `certification_catalog`, `assessment_builder`.
 - Planning tool: `practice_coach`.
+
+## MCP primitives
+
+- Resources: `tabla://glossary`, `tabla://taals`, `tabla://certification-boards`,
+  `tabla://certification-level-summaries`.
+- Prompts: `cert_prep_plan`, `weekly_practice_reset`.
+- Tools: deterministic action layer for computation, validation, and planning.
 
 ## Contract stability
 

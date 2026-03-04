@@ -7,6 +7,14 @@ All notable changes to this project are documented here.
 ### Added
 
 - `explain_taal` compatibility tool alias.
+- MCP resources:
+  - `tabla://glossary`
+  - `tabla://taals`
+  - `tabla://certification-boards`
+  - `tabla://certification-level-summaries`
+- MCP prompts:
+  - `cert_prep_plan`
+  - `weekly_practice_reset`
 - GitHub release automation workflow (`.github/workflows/release.yml`).
 - Public repo trust/ops files: `SUPPORT.md`, `NOTICE`, `docs/ARCHITECTURE.md`,
   `docs/DATA_PROVENANCE.md`, `docs/DATA_LICENSE.md`, `.github/CODEOWNERS`,

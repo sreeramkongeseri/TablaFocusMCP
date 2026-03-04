@@ -6,6 +6,7 @@
 
 TablaFocusMCP is a MCP server focused on tabla learning workflows.
 It unifies glossary lookup, composition design and validation, certification preparation, practice planning, and taal explanation into one consistent interface for AI assistants and serious learners.
+Alongside tools, it also exposes MCP resources (readable datasets) and prompts (guided workflows).
 
 ## Core Tools
 
@@ -19,6 +20,22 @@ It unifies glossary lookup, composition design and validation, certification pre
 | `taal_catalog`          | Browse taals or fetch details for one taal                 | Optional `taal_id`                                                                                                                     |
 | `composition_validator` | Check if a composition is structurally valid               | `taal`, `form`, `jati`, `cycles` (1-12), `composition_input`                                                                           |
 | `explain_taal`          | Explain a taal (legacy/compatibility name)                 | `taal`                                                                                                                                 |
+
+## MCP Resources
+
+| Resource URI                            | What it provides                                    |
+| --------------------------------------- | --------------------------------------------------- |
+| `tabla://glossary`                      | Full glossary dataset plus category list            |
+| `tabla://taals`                         | Full normalized taal catalog                        |
+| `tabla://certification-boards`          | Curated certification board metadata and references |
+| `tabla://certification-level-summaries` | Question-bank-derived level summaries               |
+
+## MCP Prompts
+
+| Prompt name             | What it guides                                         | Inputs                                                                                                                  |
+| ----------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `cert_prep_plan`        | Certification workflow (`catalog` -> `mock` -> `plan`) | `board`, `certification_level`, `days_per_week`, `minutes_per_day`                                                      |
+| `weekly_practice_reset` | Weekly reset workflow after missed sessions or fatigue | `goals` (semicolon-delimited), `daily_minutes`, `days_per_week`, optional `missed_days`, `completed_minutes`, `fatigue` |
 
 ## Install And Configure
 
@@ -135,6 +152,8 @@ npm start
 
 - [Client setup guides](docs/mcp/client-setup/)
 - [Tool list and examples](docs/mcp/tools.md)
+- [Resource list and payloads](docs/mcp/resources.md)
+- [Prompt list and usage](docs/mcp/prompts.md)
 - [Input/output schemas](docs/mcp/schemas.md)
 - [Error model](docs/mcp/error-model.md)
 - [Architecture](docs/ARCHITECTURE.md)
