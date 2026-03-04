@@ -29,12 +29,30 @@ Most tabla learning software is either static reference material or unstructured
 
 ## Supported MCP Clients
 
+- Codex CLI: [setup guide](docs/mcp/client-setup/codex.md)
+- Claude Code: [setup guide](docs/mcp/client-setup/claude-code.md)
 - Claude Desktop: [setup guide](docs/mcp/client-setup/claude-desktop.md)
 - VS Code (Copilot MCP): [setup guide](docs/mcp/client-setup/vscode-copilot.md)
 - Cursor: [setup guide](docs/mcp/client-setup/cursor.md)
 - Cline: [setup guide](docs/mcp/client-setup/cline.md)
 
 ## Install and Run
+
+### Install for MCP clients (recommended)
+
+Run without cloning this repo:
+
+```bash
+npx -y tablafocus-mcp@latest
+```
+
+Pin to a specific version for reproducibility:
+
+```bash
+npx -y tablafocus-mcp@0.1.0
+```
+
+Then configure your MCP client using the setup guides above.
 
 ### Local development
 
@@ -71,9 +89,7 @@ docker run --rm -i tablafocus-mcp
 ### Production (Package install path)
 
 ```bash
-npm run build
-npm pack
-npm install -g ./tablafocus-mcp-0.1.0.tgz
+npm install -g tablafocus-mcp@0.1.0
 tablafocus-mcp
 ```
 

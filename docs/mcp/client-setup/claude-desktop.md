@@ -6,14 +6,26 @@ Add to Claude Desktop MCP config:
 {
   "mcpServers": {
     "tablafocus": {
-      "command": "node",
-      "args": ["/ABSOLUTE/PATH/TablaFocusMCP/dist/index.js"],
-      "env": {
-        "TABLA_MCP_DATA_DIR": "/ABSOLUTE/PATH/TablaFocusMCP/data/samples"
-      }
+      "command": "npx",
+      "args": ["-y", "tablafocus-mcp@0.1.0"]
     }
   }
 }
 ```
 
-Build first: `npm run build`.
+Optional custom data source:
+
+```json
+{
+  "mcpServers": {
+    "tablafocus": {
+      "command": "npx",
+      "args": ["-y", "tablafocus-mcp@0.1.0"],
+      "env": {
+        "TABLA_MCP_DATA_DIR": "/ABSOLUTE/PATH/TO/DATA",
+        "TABLA_MCP_CURATED_DATA_DIR": "/ABSOLUTE/PATH/TO/CURATED"
+      }
+    }
+  }
+}
+```
