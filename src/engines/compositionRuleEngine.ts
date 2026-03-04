@@ -127,7 +127,24 @@ export function validateComposition(params: {
     const sum = sorted.reduce((acc, s) => acc + s.length_pulses, 0);
     segmentSum = sum === totalPulses;
 
-    for (let i = 1; i < sorted.length; i += 1) {
+    const hasInvalidSegmentShape = sorted.some(
+      (segment) =>
+        segment.end_pulse < segment.start_pulse ||
+        segment.length_pulses !== segment.end_pulse - segment.start_pulse + 1,
+    );
+
+    if (hasInvalidSegmentShape) {
+      timelineContinuity = false;
+    }
+
+    if (
+      timelineContinuity &&
+      (sorted[0].start_pulse !== 1 || sorted[sorted.length - 1].end_pulse !== totalPulses)
+    ) {
+      timelineContinuity = false;
+    }
+
+    for (let i = 1; timelineContinuity && i < sorted.length; i += 1) {
       if (sorted[i].start_pulse !== sorted[i - 1].end_pulse + 1) {
         timelineContinuity = false;
         break;
@@ -143,7 +160,7 @@ export function validateComposition(params: {
     reasons.push('Segment sum does not match total pulses');
   }
   if (!timelineContinuity) {
-    reasons.push('Segments are not contiguous');
+    reasons.push(`Segments are not contiguous or do not cover pulse range 1-${totalPulses}`);
   }
 
   return {

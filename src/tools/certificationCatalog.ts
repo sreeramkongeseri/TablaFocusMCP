@@ -2,6 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { AppContext } from '../context.js';
 import { buildCertificationCatalog } from '../engines/certificationEngine.js';
+import { ToolError } from '../errors/model.js';
 import { guarded, nowIsoDate, successResult } from '../toolRuntime.js';
 
 export function registerCertificationCatalogTool(server: McpServer, context: AppContext): void {
@@ -23,7 +24,19 @@ export function registerCertificationCatalogTool(server: McpServer, context: App
           board,
           certificationLevel: certification_level,
         });
-        const catalog = buildCertificationCatalog({ metadata, summaries });
+        const hasFilters = Boolean(board || certification_level);
+        const catalog = buildCertificationCatalog({
+          metadata,
+          summaries,
+          includeEmptyBoards: !hasFilters,
+        });
+
+        if (hasFilters && catalog.boards.length === 0) {
+          throw new ToolError('NOT_FOUND', 'No certification catalog entries matched filters', {
+            board: board ?? null,
+            certification_level: certification_level ?? null,
+          });
+        }
 
         return successResult(
           {

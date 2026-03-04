@@ -24,7 +24,9 @@ export interface CertificationCatalogResult {
 export function buildCertificationCatalog(params: {
   metadata: CertificationBoardMetadata[];
   summaries: CertificationLevelSummary[];
+  includeEmptyBoards?: boolean;
 }): CertificationCatalogResult {
+  const includeEmptyBoards = params.includeEmptyBoards ?? true;
   const byBoard = new Map<string, CertificationLevelSummary[]>();
   for (const summary of params.summaries) {
     const bucket = byBoard.get(summary.board) ?? [];
@@ -32,43 +34,47 @@ export function buildCertificationCatalog(params: {
     byBoard.set(summary.board, bucket);
   }
 
-  const boards = params.metadata.map((boardMeta) => {
-    const levelSummaries = byBoard.get(boardMeta.board) ?? [];
-    const levels = levelSummaries
-      .sort((a, b) => a.certification_level.localeCompare(b.certification_level))
-      .map((summary) => {
-        const domainCounts = new Map<string, number>();
+  const boards = params.metadata
+    .map((boardMeta) => {
+      const levelSummaries = byBoard.get(boardMeta.board) ?? [];
+      const levels = levelSummaries
+        .sort((a, b) => a.certification_level.localeCompare(b.certification_level))
+        .map((summary) => {
+          const domainCounts = new Map<string, number>();
 
-        for (const objective of summary.objectives) {
-          const domain = objectiveDomain(objective.objective_id);
-          domainCounts.set(domain, (domainCounts.get(domain) ?? 0) + objective.question_count);
-        }
+          for (const objective of summary.objectives) {
+            const domain = objectiveDomain(objective.objective_id);
+            domainCounts.set(domain, (domainCounts.get(domain) ?? 0) + objective.question_count);
+          }
 
-        const syllabusDomains = [...domainCounts.entries()]
-          .map(([domain, question_count]) => ({ domain, question_count }))
-          .sort((a, b) => b.question_count - a.question_count || a.domain.localeCompare(b.domain));
+          const syllabusDomains = [...domainCounts.entries()]
+            .map(([domain, question_count]) => ({ domain, question_count }))
+            .sort(
+              (a, b) => b.question_count - a.question_count || a.domain.localeCompare(b.domain),
+            );
 
-        return {
-          certification_level: summary.certification_level,
-          level_label: summary.level_label,
-          total_questions: summary.total_questions,
-          papers: summary.papers,
-          categories: summary.categories,
-          syllabus_domains: syllabusDomains,
-          objective_count: summary.objectives.length,
-          top_objectives: summary.objectives.slice(0, 12),
-        };
-      });
+          return {
+            certification_level: summary.certification_level,
+            level_label: summary.level_label,
+            total_questions: summary.total_questions,
+            papers: summary.papers,
+            categories: summary.categories,
+            syllabus_domains: syllabusDomains,
+            objective_count: summary.objectives.length,
+            top_objectives: summary.objectives.slice(0, 12),
+          };
+        });
 
-    return {
-      board: boardMeta.board,
-      full_name: boardMeta.fullName,
-      description: boardMeta.description,
-      website: boardMeta.website,
-      references: boardMeta.references,
-      levels,
-    };
-  });
+      return {
+        board: boardMeta.board,
+        full_name: boardMeta.fullName,
+        description: boardMeta.description,
+        website: boardMeta.website,
+        references: boardMeta.references,
+        levels,
+      };
+    })
+    .filter((board) => includeEmptyBoards || board.levels.length > 0);
 
   return { boards };
 }

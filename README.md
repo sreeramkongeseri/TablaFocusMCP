@@ -9,16 +9,16 @@ It unifies glossary lookup, composition design and validation, certification pre
 
 ## Core Tools
 
-| Tool                    | What it helps with                                         | What to provide                                                                                                   |
-| ----------------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `glossary_lookup`       | Understand tabla terms quickly                             | `term` (word to look up), optional `category`, optional `limit` (max results, up to 100)                          |
-| `compose_builder`       | Build valid `tihai`, `tukra`, and `chakradhar` structures  | `taal`, `form`, `jati`; optional `cycles` (1-12)                                                                  |
-| `certification_catalog` | Find exam tracks by board and level                        | Optional `board`, optional `certification_level`                                                                  |
-| `assessment_builder`    | Generate practice quizzes or mock certification tests      | `mode` (`practice_quiz` or `cert_mock`), `count` (1-100); optional `board`, `certification_level`, `taal`, `seed` |
-| `practice_coach`        | Create a weekly practice plan based on your goals and time | `goals`, `availability`; optional `profile_id`, optional `week_context` (missed days, completed minutes, fatigue) |
-| `taal_catalog`          | Browse taals or fetch details for one taal                 | Optional `taal_id`                                                                                                |
-| `composition_validator` | Check if a composition is structurally valid               | `taal`, `form`, `jati`, `cycles` (1-12), `composition_input`                                                      |
-| `explain_taal`          | Explain a taal (legacy/compatibility name)                 | `taal`                                                                                                            |
+| Tool                    | What it helps with                                         | What to provide                                                                                                                        |
+| ----------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `glossary_lookup`       | Understand tabla terms quickly                             | `term` (word to look up), optional `category`, optional `limit` (max results, up to 100)                                               |
+| `compose_builder`       | Build valid `tihai`, `tukra`, and `chakradhar` structures  | `taal`, `form`, `jati`; optional `cycles` (1-12)                                                                                       |
+| `certification_catalog` | Find exam tracks by board and level                        | Optional `board`, optional `certification_level`                                                                                       |
+| `assessment_builder`    | Generate practice quizzes or mock certification tests      | `mode` (`practice_quiz` or `cert_mock`), optional `count` (1-100, default 10); optional `board`, `certification_level`, `taal`, `seed` |
+| `practice_coach`        | Create a weekly practice plan based on your goals and time | `goals`, `availability`; optional `profile_id`, optional `week_context` (missed days, completed minutes, fatigue)                      |
+| `taal_catalog`          | Browse taals or fetch details for one taal                 | Optional `taal_id`                                                                                                                     |
+| `composition_validator` | Check if a composition is structurally valid               | `taal`, `form`, `jati`, `cycles` (1-12), `composition_input`                                                                           |
+| `explain_taal`          | Explain a taal (legacy/compatibility name)                 | `taal`                                                                                                                                 |
 
 ## Install And Configure
 

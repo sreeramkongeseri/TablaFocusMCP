@@ -79,4 +79,42 @@ describe('tool integration', () => {
       await server.close();
     }
   });
+
+  it('calls assessment_builder with default count', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.callTool({
+        name: 'assessment_builder',
+        arguments: { mode: 'practice_quiz' },
+      });
+
+      expect(result.isError).toBeFalsy();
+      const payload = result.structuredContent as { data: { request: { count: number } } };
+      expect(payload.data.request.count).toBe(10);
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
+  it('filters certification_catalog by board without leaking empty boards', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.callTool({
+        name: 'certification_catalog',
+        arguments: { board: 'ABGMVM' },
+      });
+
+      expect(result.isError).toBeFalsy();
+      const payload = result.structuredContent as {
+        data: { catalog: { boards: Array<{ board: string; levels: unknown[] }> } };
+      };
+      expect(payload.data.catalog.boards.length).toBeGreaterThan(0);
+      expect(payload.data.catalog.boards.every((entry) => entry.board === 'ABGMVM')).toBe(true);
+      expect(payload.data.catalog.boards.every((entry) => entry.levels.length > 0)).toBe(true);
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
 });

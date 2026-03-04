@@ -49,6 +49,11 @@ Purpose: build `practice_quiz` or `cert_mock` with answer key and rubric.
 
 Input schema: `src/schemas/tool_input/assessment_builder.json`
 
+Notes:
+
+- `mode` is required.
+- `count` is optional (defaults to `10`).
+
 Example call:
 
 ```json
