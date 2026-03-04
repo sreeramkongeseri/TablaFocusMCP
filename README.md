@@ -4,7 +4,7 @@
 [![Release](https://img.shields.io/github/v/release/sreeramkongeseri/TablaFocusMCP?sort=semver)](https://github.com/sreeramkongeseri/TablaFocusMCP/releases)
 [![License](https://img.shields.io/github/license/sreeramkongeseri/TablaFocusMCP)](LICENSE)
 
-TablaFocusMCP is a production-ready MCP server focused on tabla learning workflows.
+TablaFocusMCP is a MCP server focused on tabla learning workflows.
 It unifies glossary lookup, composition design and validation, certification preparation, practice planning, and taal explanation into one consistent interface for AI assistants and serious learners.
 
 ## Core Tools
