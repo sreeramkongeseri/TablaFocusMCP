@@ -7,6 +7,19 @@
 TablaFocusMCP is a production-ready MCP server focused on tabla learning workflows.
 It unifies glossary lookup, composition design and validation, certification preparation, practice planning, and taal explanation into one consistent interface for AI assistants and serious learners.
 
+## Core Tools
+
+| Tool                    | What it helps with                                         | What to provide                                                                                                   |
+| ----------------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `glossary_lookup`       | Understand tabla terms quickly                             | `term` (word to look up), optional `category`, optional `limit` (max results, up to 100)                          |
+| `compose_builder`       | Build valid `tihai`, `tukra`, and `chakradhar` structures  | `taal`, `form`, `jati`; optional `cycles` (1-12)                                                                  |
+| `certification_catalog` | Find exam tracks by board and level                        | Optional `board`, optional `certification_level`                                                                  |
+| `assessment_builder`    | Generate practice quizzes or mock certification tests      | `mode` (`practice_quiz` or `cert_mock`), `count` (1-100); optional `board`, `certification_level`, `taal`, `seed` |
+| `practice_coach`        | Create a weekly practice plan based on your goals and time | `goals`, `availability`; optional `profile_id`, optional `week_context` (missed days, completed minutes, fatigue) |
+| `taal_catalog`          | Browse taals or fetch details for one taal                 | Optional `taal_id`                                                                                                |
+| `composition_validator` | Check if a composition is structurally valid               | `taal`, `form`, `jati`, `cycles` (1-12), `composition_input`                                                      |
+| `explain_taal`          | Explain a taal (legacy/compatibility name)                 | `taal`                                                                                                            |
+
 ## Install And Configure
 
 Use directly from npm (no clone required):
@@ -67,19 +80,6 @@ Optional env vars:
 <p align="center">
   <img src="assets/tablafocus-mcp-icon.svg" alt="TablaFocusMCP icon" width="420" />
 </p>
-
-## Core Tools
-
-| Tool                    | What it helps with                                         | Inputs                                                                                                            |
-| ----------------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `glossary_lookup`       | Understand tabla terms quickly                             | `term`, optional `category`, optional `limit` (up to 100)                                                         |
-| `compose_builder`       | Build valid `tihai`, `tukra`, and `chakradhar` structures  | `taal`, `form`, `jati`, optional `cycles` (1-12)                                                                  |
-| `certification_catalog` | Find exam tracks by board and level                        | Optional `board`, optional `certification_level`                                                                  |
-| `assessment_builder`    | Generate practice quizzes or certification mocks           | `mode` (`practice_quiz` or `cert_mock`), `count` (1-100), optional `board`, `certification_level`, `taal`, `seed` |
-| `practice_coach`        | Create a weekly practice plan from your goals and time     | `goals`, `availability`, optional `profile_id`, optional `week_context`                                           |
-| `taal_catalog`          | Browse all taals or fetch details for a specific taal      | Optional `taal_id`                                                                                                |
-| `composition_validator` | Validate composition structure against taal and form rules | `taal`, `form`, `jati`, `cycles` (1-12), `composition_input`                                                      |
-| `explain_taal`          | Explain a taal (compatibility alias)                       | `taal`                                                                                                            |
 
 ## Local Development
 
