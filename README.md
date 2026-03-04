@@ -55,6 +55,27 @@ claude mcp add -s user tablafocus -- npx -y tablafocus-mcp@latest
 }
 ```
 
+### GitHub Packages (optional)
+
+Package name on GitHub Packages:
+
+```text
+@sreeramkongeseri/tablafocus-mcp
+```
+
+Authenticate npm with a GitHub classic PAT (`read:packages`):
+
+```bash
+echo "@sreeramkongeseri:registry=https://npm.pkg.github.com" >> ~/.npmrc
+echo "//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN" >> ~/.npmrc
+```
+
+Then run:
+
+```bash
+npx -y @sreeramkongeseri/tablafocus-mcp@latest
+```
+
 Optional env vars:
 
 - `TABLA_MCP_DATA_DIR` (default: package `data/samples`)
