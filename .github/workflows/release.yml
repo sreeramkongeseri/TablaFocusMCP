@@ -1,0 +1,89 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g. v0.1.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Resolve ref
+        id: ref
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "ref=refs/tags/${{ github.event.inputs.tag }}" >> "$GITHUB_OUTPUT"
+            echo "tag=${{ github.event.inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "ref=${{ github.ref }}" >> "$GITHUB_OUTPUT"
+            echo "tag=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.ref.outputs.ref }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Verify
+        run: |
+          npm run lint
+          npm run format:check
+          npm test
+          npm run build
+
+      - name: Pack artifact
+        run: npm pack
+
+      - name: Extract changelog notes
+        id: changelog
+        shell: bash
+        run: |
+          TAG="${{ steps.ref.outputs.tag }}"
+          VERSION="${TAG#v}"
+
+          NOTES="$(awk -v ver="$VERSION" '
+            BEGIN { in_section=0 }
+            $0 ~ "^## \\[" ver "\\]" { in_section=1; next }
+            $0 ~ "^## \\[" && in_section==1 { exit }
+            in_section==1 { print }
+          ' CHANGELOG.md)"
+
+          if [ -z "$NOTES" ]; then
+            NOTES="No changelog section found for $VERSION."
+          fi
+
+          {
+            echo "notes<<EOF"
+            echo "$NOTES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ref.outputs.tag }}
+          name: TablaFocusMCP ${{ steps.ref.outputs.tag }}
+          body: ${{ steps.changelog.outputs.notes }}
+          files: |
+            *.tgz

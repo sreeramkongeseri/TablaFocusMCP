@@ -1,0 +1,116 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Tabla Focus MCP Icon</title>
+  <desc id="desc">Single tabla icon from Tabla Focus style with an MCP protocol overlay.</desc>
+
+  <defs>
+    <style>
+      .bg { fill: #582d2d; }
+      .cream { fill: #fffaf0; }
+      .rim { stroke: #b46450; fill: none; }
+      .core { fill: #321914; }
+      .accent { fill: #b46450; }
+      .wire { stroke: #fffaf0; }
+      .wireAccent { stroke: #b46450; }
+      .nodeStroke { stroke: #321914; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1024" height="1024" />
+
+  <!-- Tabla -->
+  <circle class="rim" cx="512" cy="512" r="375" stroke-width="9" />
+  <circle class="cream" cx="512" cy="512" r="365" />
+  <circle class="rim" cx="512" cy="512" r="317" stroke-width="4" />
+  <circle fill="#f5f0e6" cx="512" cy="512" r="318" />
+  <circle class="core" cx="512" cy="512" r="140" />
+
+  <!-- Tick marks -->
+  <g transform="translate(512 512)">
+    <g>
+      <rect class="cream" x="-4" y="-425" width="8" height="33" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(15)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(30)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(45)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(60)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(75)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(90)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(105)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(120)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(135)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(150)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(165)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(180)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(195)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(210)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(225)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(240)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(255)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(270)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(285)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(300)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(315)" />
+      <rect class="cream" x="-4" y="-425" width="8" height="33" transform="rotate(330)" />
+      <rect class="accent" x="-4" y="-425" width="8" height="33" transform="rotate(345)" />
+    </g>
+  </g>
+
+  <!-- MCP network -->
+  <g transform="translate(34 -8) translate(725 430) scale(1.18) translate(-725 -430)">
+    <g stroke-linecap="round" fill="none">
+      <!-- Ring -->
+      <path class="wire" stroke-width="8" d="M600 350L690 330" />
+      <path class="wire" stroke-width="8" d="M690 330L780 360" />
+      <path class="wire" stroke-width="8" d="M780 360L860 430" />
+      <path class="wire" stroke-width="8" d="M860 430L780 500" />
+      <path class="wire" stroke-width="8" d="M780 500L680 530" />
+      <path class="wire" stroke-width="8" d="M680 530L600 470" />
+      <path class="wire" stroke-width="8" d="M600 470L600 350" />
+
+      <!-- Hub spokes -->
+      <path class="wire" stroke-width="8" d="M730 430L600 350" />
+      <path class="wire" stroke-width="8" d="M730 430L690 330" />
+      <path class="wire" stroke-width="8" d="M730 430L780 360" />
+      <path class="wire" stroke-width="8" d="M730 430L860 430" />
+      <path class="wire" stroke-width="8" d="M730 430L780 500" />
+      <path class="wire" stroke-width="8" d="M730 430L680 530" />
+      <path class="wire" stroke-width="8" d="M730 430L600 470" />
+
+      <!-- Cross links -->
+      <path class="wire" stroke-width="8" d="M690 330L780 500" />
+      <path class="wire" stroke-width="8" d="M780 360L680 530" />
+      <path class="wire" stroke-width="8" d="M600 350L780 360" />
+
+      <path class="wireAccent" stroke-width="2" d="M600 350L690 330" />
+      <path class="wireAccent" stroke-width="2" d="M690 330L780 360" />
+      <path class="wireAccent" stroke-width="2" d="M780 360L860 430" />
+      <path class="wireAccent" stroke-width="2" d="M860 430L780 500" />
+      <path class="wireAccent" stroke-width="2" d="M780 500L680 530" />
+      <path class="wireAccent" stroke-width="2" d="M680 530L600 470" />
+      <path class="wireAccent" stroke-width="2" d="M600 470L600 350" />
+
+      <path class="wireAccent" stroke-width="2" d="M730 430L600 350" />
+      <path class="wireAccent" stroke-width="2" d="M730 430L690 330" />
+      <path class="wireAccent" stroke-width="2" d="M730 430L780 360" />
+      <path class="wireAccent" stroke-width="2" d="M730 430L860 430" />
+      <path class="wireAccent" stroke-width="2" d="M730 430L780 500" />
+      <path class="wireAccent" stroke-width="2" d="M730 430L680 530" />
+      <path class="wireAccent" stroke-width="2" d="M730 430L600 470" />
+
+      <path class="wireAccent" stroke-width="2" d="M690 330L780 500" />
+      <path class="wireAccent" stroke-width="2" d="M780 360L680 530" />
+      <path class="wireAccent" stroke-width="2" d="M600 350L780 360" />
+    </g>
+
+    <!-- Nodes -->
+    <g>
+      <circle cx="600" cy="350" r="20" fill="#fffaf0" class="nodeStroke" stroke-width="6" />
+      <circle cx="690" cy="330" r="20" fill="#fffaf0" class="nodeStroke" stroke-width="6" />
+      <circle cx="780" cy="360" r="20" fill="#fffaf0" class="nodeStroke" stroke-width="6" />
+      <circle cx="860" cy="430" r="20" fill="#fffaf0" class="nodeStroke" stroke-width="6" />
+      <circle cx="780" cy="500" r="20" fill="#fffaf0" class="nodeStroke" stroke-width="6" />
+      <circle cx="680" cy="530" r="20" fill="#fffaf0" class="nodeStroke" stroke-width="6" />
+      <circle cx="600" cy="470" r="20" fill="#fffaf0" class="nodeStroke" stroke-width="6" />
+      <circle cx="730" cy="430" r="22" fill="#fffaf0" class="nodeStroke" stroke-width="6" />
+    </g>
+  </g>
+</svg>

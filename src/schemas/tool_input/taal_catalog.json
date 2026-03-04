@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "taal_catalog input",
+  "type": "object",
+  "properties": {
+    "taal_id": { "type": "string" }
+  },
+  "additionalProperties": false
+}

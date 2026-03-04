@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "common tool envelope",
+  "type": "object",
+  "required": ["meta", "data"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "tool",
+        "coverage_status",
+        "confidence",
+        "confidence_reason",
+        "last_verified_at",
+        "source"
+      ],
+      "properties": {
+        "tool": { "type": "string" },
+        "coverage_status": {
+          "type": "string",
+          "enum": ["full", "partial", "conflicted", "sparse", "unavailable"]
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "confidence_reason": { "type": "string" },
+        "last_verified_at": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    },
+    "data": { "type": "object" }
+  }
+}

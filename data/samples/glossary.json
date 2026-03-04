@@ -1,0 +1,122 @@
+[
+  {
+    "term": "Sam",
+    "definition": "First beat of the cycle and the main resolution point.",
+    "category": "Concepts",
+    "altSpellings": []
+  },
+  {
+    "term": "Khali",
+    "definition": "The waved (empty) vibhag used as a structural marker.",
+    "category": "Concepts",
+    "altSpellings": []
+  },
+  {
+    "term": "Tali",
+    "definition": "A clapped vibhag marker showing stress points in the taal.",
+    "category": "Concepts",
+    "altSpellings": []
+  },
+  {
+    "term": "Matra",
+    "definition": "Single beat unit in a taal cycle.",
+    "category": "Concepts",
+    "altSpellings": []
+  },
+  {
+    "term": "Vibhag",
+    "definition": "Grouping of matras inside one avartan.",
+    "category": "Concepts",
+    "altSpellings": []
+  },
+  {
+    "term": "Avartan",
+    "definition": "One complete cycle from sam to next sam.",
+    "category": "Concepts",
+    "altSpellings": ["Aavartan"]
+  },
+  {
+    "term": "Theka",
+    "definition": "Canonical bol pattern that identifies a taal.",
+    "category": "Concepts",
+    "altSpellings": []
+  },
+  {
+    "term": "Laya",
+    "definition": "Tempo: vilambit, madhya, or drut.",
+    "category": "Concepts",
+    "altSpellings": []
+  },
+  {
+    "term": "Layakari",
+    "definition": "Subdivisional play against a fixed pulse.",
+    "category": "Concepts",
+    "altSpellings": []
+  },
+  {
+    "term": "Tihai",
+    "definition": "Phrase repeated three times to resolve on sam.",
+    "category": "Composition",
+    "altSpellings": []
+  },
+  {
+    "term": "Tukra",
+    "definition": "Short fixed composition, often energetic and cadential.",
+    "category": "Composition",
+    "altSpellings": []
+  },
+  {
+    "term": "Chakradhar",
+    "definition": "A three-round structure where each round itself contains a tihai design.",
+    "category": "Composition",
+    "altSpellings": ["Chakradar"]
+  },
+  {
+    "term": "Peshkar",
+    "definition": "Introductory improvisational form, usually in vilambit teental.",
+    "category": "Composition",
+    "altSpellings": []
+  },
+  {
+    "term": "Qaida",
+    "definition": "Theme-and-variation compositional form with rule-bound bol grammar.",
+    "category": "Composition",
+    "altSpellings": ["Kayda"]
+  },
+  {
+    "term": "Rela",
+    "definition": "Fast flowing composition, often with dense bol movement.",
+    "category": "Composition",
+    "altSpellings": []
+  },
+  {
+    "term": "Dayan",
+    "definition": "Right-hand treble drum of the tabla pair.",
+    "category": "Anatomy",
+    "altSpellings": ["Tabla"]
+  },
+  {
+    "term": "Bayan",
+    "definition": "Left-hand bass drum of the tabla pair.",
+    "category": "Anatomy",
+    "altSpellings": ["Duggi", "Dagga"]
+  },
+  {
+    "term": "Syahi",
+    "definition": "Central black tuning paste that defines pitch and timbre.",
+    "category": "Anatomy",
+    "altSpellings": []
+  },
+  {
+    "term": "Kinar",
+    "definition": "Outer ring area used for bright rim strokes.",
+    "category": "Anatomy",
+    "altSpellings": []
+  },
+  {
+    "term": "Maidan",
+    "definition": "Middle playing area between syahi and kinar.",
+    "category": "Anatomy",
+    "altSpellings": []
+  }
+]
