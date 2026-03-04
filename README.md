@@ -87,6 +87,14 @@ Optional env vars:
   <img src="assets/tablafocus-mcp-icon.svg" alt="TablaFocusMCP icon" width="420" />
 </p>
 
+## Try These 3 Prompts
+
+Copy and paste any of these in your MCP client:
+
+1. Explain `teental` for a beginner.
+2. Generate a valid 1-cycle `tihai` in `teental` (`chatusra`).
+3. Create a weekly tabla practice plan for me (45 min/day, 5 days).
+
 ## Local Development
 
 ```bash
