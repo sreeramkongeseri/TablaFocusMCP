@@ -3,7 +3,7 @@
 Add the server at user scope:
 
 ```bash
-claude mcp add -s user tablafocus -- npx -y tablafocus-mcp@0.1.0
+claude mcp add -s user tablafocus -- npx -y tablafocus-mcp@latest
 ```
 
 Verify:
@@ -18,7 +18,7 @@ Optional custom data source:
 claude mcp add -s user \
   -e TABLA_MCP_DATA_DIR=/ABSOLUTE/PATH/TO/DATA \
   -e TABLA_MCP_CURATED_DATA_DIR=/ABSOLUTE/PATH/TO/CURATED \
-  tablafocus -- npx -y tablafocus-mcp@0.1.0
+  tablafocus -- npx -y tablafocus-mcp@latest
 ```
 
 Upgrade to the newest published release:

@@ -7,7 +7,7 @@ Add to Claude Desktop MCP config:
   "mcpServers": {
     "tablafocus": {
       "command": "npx",
-      "args": ["-y", "tablafocus-mcp@0.1.0"]
+      "args": ["-y", "tablafocus-mcp@latest"]
     }
   }
 }
@@ -20,7 +20,7 @@ Optional custom data source:
   "mcpServers": {
     "tablafocus": {
       "command": "npx",
-      "args": ["-y", "tablafocus-mcp@0.1.0"],
+      "args": ["-y", "tablafocus-mcp@latest"],
       "env": {
         "TABLA_MCP_DATA_DIR": "/ABSOLUTE/PATH/TO/DATA",
         "TABLA_MCP_CURATED_DATA_DIR": "/ABSOLUTE/PATH/TO/CURATED"
