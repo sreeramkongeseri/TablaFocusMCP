@@ -37,6 +37,14 @@ TablaFocusMCP uses two dataset classes:
 - License status: covered under repository MIT terms.
 - Last review date: 2026-03-04.
 
+### `data/curated/website_articles.json`
+
+- Purpose: curated article metadata index for richer tabla context derived from the Tabla Focus website API.
+- Source type: generated from `https://www.tablafocus.com/api/ios/articles` and per-article detail endpoints.
+- Generator: `scripts/sync-webpage-content.mjs`.
+- License status: metadata curated and published by Tabla Focus project maintainers.
+- Last review date: 2026-03-04.
+
 ## Private local imports
 
 The helper script [`scripts/sync_from_tablafocus.sh`](../scripts/sync_from_tablafocus.sh) imports external app exports into `data/private/raw` by default.
@@ -50,3 +58,4 @@ The helper script [`scripts/sync_from_tablafocus.sh`](../scripts/sync_from_tabla
 - Tool responses include `source`, `coverage_status`, and `confidence` fields.
 - Metadata references should be reviewed each release.
 - If provenance is uncertain, mark `coverage_status` as `partial` or `sparse` and disclose limitations.
+- Curated website metadata freshness can be checked via `npm run content:check:freshness`.

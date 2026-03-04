@@ -28,6 +28,12 @@ Use directly from npm (no clone required):
 npx -y tablafocus-mcp@latest
 ```
 
+Check what `latest` currently resolves to:
+
+```bash
+npm view tablafocus-mcp version dist-tags --json
+```
+
 Pin to a specific version when needed:
 
 ```bash
@@ -87,8 +93,28 @@ Optional env vars:
 npm ci
 npm run lint
 npm test
+npm run registry:check
+npm run smoke:package
 npm run dev
 ```
+
+## Website Content Sync
+
+Sync structured article metadata from `www.tablafocus.com` into curated JSON:
+
+```bash
+npm run content:sync
+```
+
+Freshness check (fails if local curated file is stale):
+
+```bash
+npm run content:check:freshness
+```
+
+Optional sync env var:
+
+- `TABLA_MCP_SOURCE_BASE_URL` (default: `https://www.tablafocus.com`)
 
 Build and run:
 
@@ -106,6 +132,7 @@ npm start
 - [Architecture](docs/ARCHITECTURE.md)
 - [Data provenance](docs/DATA_PROVENANCE.md)
 - [Data licensing](docs/DATA_LICENSE.md)
+- [MCP registry submission](docs/mcp/registry-submission.md)
 - [Changelog](CHANGELOG.md)
 
 ## Project Standards

@@ -8,3 +8,4 @@ data/private/*
 !data/private/raw/
 !data/private/raw/.gitkeep
 *.tgz
+.mcpregistry_*

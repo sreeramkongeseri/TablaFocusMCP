@@ -20,6 +20,7 @@
 
 - `data/samples/*`: default open sample content.
 - `data/curated/*`: board metadata + references.
+- `scripts/sync-webpage-content.mjs`: syncs website article metadata into `data/curated/website_articles.json`.
 - `data/private/raw/*`: optional local imports (not for publication).
 
 ## Tool families

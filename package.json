@@ -1,6 +1,6 @@
 {
   "name": "tablafocus-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Universal Tabla MCP server powered by Tabla Focus content and deterministic composition engines.",
   "type": "module",
   "main": "dist/index.js",
@@ -12,6 +12,7 @@
     "data/samples/",
     "data/curated/",
     "assets/tablafocus-mcp-icon.svg",
+    "server.json",
     "docs/mcp/",
     "docs/ARCHITECTURE.md",
     "docs/DATA_PROVENANCE.md",
@@ -35,6 +36,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "demo": "tsx scripts/demo.ts",
+    "content:sync": "node scripts/sync-webpage-content.mjs",
+    "content:check:freshness": "node scripts/sync-webpage-content.mjs --check",
+    "registry:check": "node scripts/verify-registry-metadata.mjs",
+    "smoke:package": "node scripts/smoke-package.mjs",
     "prepack": "npm run build",
     "prepare": "node scripts/prepare.mjs"
   },
@@ -49,6 +54,7 @@
     "education"
   ],
   "author": "TablaFocusMCP Contributors",
+  "mcpName": "io.github.sreeramkongeseri/tablafocus-mcp",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sreeramkongeseri/TablaFocusMCP/issues"

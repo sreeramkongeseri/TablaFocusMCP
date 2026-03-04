@@ -51,6 +51,8 @@ jobs:
           npm run format:check
           npm test
           npm run build
+          npm run registry:check
+          npm run smoke:package
 
       - name: Pack artifact
         run: npm pack

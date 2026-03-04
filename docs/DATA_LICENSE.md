@@ -4,6 +4,12 @@
 
 Files in `data/samples/` and `data/curated/` are part of this repository and distributed under the repository's [MIT License](../LICENSE), unless noted otherwise.
 
+### Website-derived curated metadata
+
+- `data/curated/website_articles.json` is generated from public Tabla Focus API endpoints.
+- It is metadata and indexing data curated by this project and maintained in-repo.
+- Refresh command: `npm run content:sync`.
+
 ## External/imported datasets
 
 Files imported via `scripts/sync_from_tablafocus.sh` are external content and are not re-licensed by this project.

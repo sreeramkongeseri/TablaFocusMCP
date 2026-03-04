@@ -9,6 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18, 20]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,7 +20,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
           cache: npm
 
       - name: Install
@@ -33,3 +37,9 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Registry metadata check
+        run: npm run registry:check
+
+      - name: Package smoke test
+        run: npm run smoke:package
