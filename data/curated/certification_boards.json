@@ -1,0 +1,65 @@
+[
+  {
+    "board": "ABGMVM",
+    "fullName": "Akhil Bharatiya Gandharva Mahavidyalaya Mandal",
+    "website": "https://abgmvm.org/",
+    "description": "Certification mapping derived from the MCP sample assessment taxonomy with ABGMVM-style level names.",
+    "levels": [
+      "PRARAMBHIK",
+      "PRAVESHIKA_PRATHAM",
+      "PRAVESHIKA_PURNA",
+      "MADHYAMA_PRATHAM",
+      "MADHYAMA_PURNA",
+      "VISHARAD_PRATHAM",
+      "VISHARAD_PURNA"
+    ],
+    "references": [
+      {
+        "title": "TablaFocusMCP data provenance",
+        "url": "docs/DATA_PROVENANCE.md"
+      },
+      {
+        "title": "ABGMVM official website",
+        "url": "https://abgmvm.org/"
+      }
+    ]
+  },
+  {
+    "board": "BSV",
+    "fullName": "Bhatkhande track mapping (sample taxonomy)",
+    "website": "https://www.bhatkhandeuniversity.ac.in/",
+    "description": "Sample mapping aligned to Bhatkhande-style progression labels for cross-reference practice.",
+    "levels": [
+      "PRATHAMA",
+      "MADHYAMA_I",
+      "MADHYAMA_II",
+      "VISHARAD_I",
+      "VISHARAD_II",
+      "NIPUN_I",
+      "NIPUN_II",
+      "NIPUN_III"
+    ],
+    "references": [
+      {
+        "title": "TablaFocusMCP data provenance",
+        "url": "docs/DATA_PROVENANCE.md"
+      },
+      {
+        "title": "Bhatkhande institution website",
+        "url": "https://www.bhatkhandeuniversity.ac.in/"
+      }
+    ]
+  },
+  {
+    "board": "HYBRID",
+    "fullName": "Cross-board synthesis objectives",
+    "description": "Synthetic cross-board objectives for mixed-preparation assessment workflows.",
+    "levels": ["CROSS"],
+    "references": [
+      {
+        "title": "TablaFocusMCP sample assessment taxonomy",
+        "url": "data/samples/quiz_bank.json"
+      }
+    ]
+  }
+]

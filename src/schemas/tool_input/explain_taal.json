@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "explain_taal input",
+  "type": "object",
+  "required": ["taal"],
+  "properties": {
+    "taal": { "type": "string" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "assessment_builder input",
+  "type": "object",
+  "required": ["mode", "count"],
+  "properties": {
+    "mode": { "type": "string", "enum": ["practice_quiz", "cert_mock"] },
+    "board": { "type": "string" },
+    "certification_level": { "type": "string" },
+    "taal": { "type": "string" },
+    "count": { "type": "integer", "minimum": 1, "maximum": 100 },
+    "seed": { "type": "string" }
+  },
+  "additionalProperties": false
+}

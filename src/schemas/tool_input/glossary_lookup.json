@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "glossary_lookup input",
+  "type": "object",
+  "properties": {
+    "term": { "type": "string" },
+    "category": { "type": "string" },
+    "limit": { "type": "integer", "minimum": 1, "maximum": 100 }
+  },
+  "additionalProperties": false
+}

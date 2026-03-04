@@ -1,0 +1,83 @@
+{
+  "name": "tablafocus-mcp",
+  "version": "0.1.0",
+  "description": "Universal Tabla MCP server powered by Tabla Focus content and deterministic composition engines.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "tablafocus-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist/",
+    "data/samples/",
+    "data/curated/",
+    "assets/tablafocus-mcp-icon.svg",
+    "docs/mcp/",
+    "docs/ARCHITECTURE.md",
+    "docs/DATA_PROVENANCE.md",
+    "docs/DATA_LICENSE.md",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md"
+  ],
+  "private": false,
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "demo": "tsx scripts/demo.ts",
+    "prepack": "npm run build",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sreeramkongeseri/TablaFocusMCP.git"
+  },
+  "keywords": [
+    "mcp",
+    "tabla",
+    "music",
+    "education"
+  ],
+  "author": "TablaFocusMCP Contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sreeramkongeseri/TablaFocusMCP/issues"
+  },
+  "homepage": "https://github.com/sreeramkongeseri/TablaFocusMCP#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.3.3",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^10.0.2",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.2",
+    "prettier": "^3.8.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "lint-staged": {
+    "*.{ts,js,json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.ts": [
+      "eslint --fix"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+coverage/
+.DS_Store
+.vscode/
+data/private/*
+!data/private/raw/
+!data/private/raw/.gitkeep
+*.tgz

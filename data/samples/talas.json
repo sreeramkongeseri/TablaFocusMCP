@@ -1,0 +1,71 @@
+[
+  {
+    "name": "Teental (16)",
+    "matras": 16,
+    "vibhags": [
+      { "type": "sam", "position": 1, "matraStart": 1, "matraEnd": 4 },
+      { "type": "tali", "position": 2, "matraStart": 5, "matraEnd": 8 },
+      { "type": "khali", "position": 3, "matraStart": 9, "matraEnd": 12 },
+      { "type": "tali", "position": 4, "matraStart": 13, "matraEnd": 16 }
+    ],
+    "theka": "Dha Dhin Dhin Dha | Dha Dhin Dhin Dha | Dha Tin Tin Ta | Ta Dhin Dhin Dha",
+    "talaDescription": "16-beat cycle in 4+4+4+4 structure used across solo and accompaniment."
+  },
+  {
+    "name": "Jhaptaal (10)",
+    "matras": 10,
+    "vibhags": [
+      { "type": "sam", "position": 1, "matraStart": 1, "matraEnd": 2 },
+      { "type": "tali", "position": 2, "matraStart": 3, "matraEnd": 5 },
+      { "type": "khali", "position": 3, "matraStart": 6, "matraEnd": 7 },
+      { "type": "tali", "position": 4, "matraStart": 8, "matraEnd": 10 }
+    ],
+    "theka": "Dhi Na | Dhi Dhi Na | Ti Na | Dhi Dhi Na",
+    "talaDescription": "Asymmetric 10-beat cycle grouped 2+3+2+3."
+  },
+  {
+    "name": "Ektaal (12)",
+    "matras": 12,
+    "vibhags": [
+      { "type": "sam", "position": 1, "matraStart": 1, "matraEnd": 2 },
+      { "type": "khali", "position": 2, "matraStart": 3, "matraEnd": 4 },
+      { "type": "tali", "position": 3, "matraStart": 5, "matraEnd": 6 },
+      { "type": "khali", "position": 4, "matraStart": 7, "matraEnd": 8 },
+      { "type": "tali", "position": 5, "matraStart": 9, "matraEnd": 10 },
+      { "type": "tali", "position": 6, "matraStart": 11, "matraEnd": 12 }
+    ],
+    "theka": "Dhin Dhin | Dhage Tirakita | Tu Na | Kat Ta | Dhage Tirakita | Dhi Na",
+    "talaDescription": "12-beat cycle with six 2-beat vibhags."
+  },
+  {
+    "name": "Rupak (7)",
+    "matras": 7,
+    "vibhags": [
+      { "type": "khali", "position": 1, "matraStart": 1, "matraEnd": 3 },
+      { "type": "tali", "position": 2, "matraStart": 4, "matraEnd": 5 },
+      { "type": "tali", "position": 3, "matraStart": 6, "matraEnd": 7 }
+    ],
+    "theka": "Tin Tin Na | Dhin Na | Dhin Na",
+    "talaDescription": "7-beat cycle often taught with khali at opening."
+  },
+  {
+    "name": "Dadra (6)",
+    "matras": 6,
+    "vibhags": [
+      { "type": "sam", "position": 1, "matraStart": 1, "matraEnd": 3 },
+      { "type": "khali", "position": 2, "matraStart": 4, "matraEnd": 6 }
+    ],
+    "theka": "Dha Dhi Na | Na Ti Na",
+    "talaDescription": "6-beat light-classical and devotional cycle."
+  },
+  {
+    "name": "Keherwa (8)",
+    "matras": 8,
+    "vibhags": [
+      { "type": "sam", "position": 1, "matraStart": 1, "matraEnd": 4 },
+      { "type": "khali", "position": 2, "matraStart": 5, "matraEnd": 8 }
+    ],
+    "theka": "Dha Ge Na Ti | Na Ka Dhi Na",
+    "talaDescription": "8-beat cycle common in bhajans and light forms."
+  }
+]

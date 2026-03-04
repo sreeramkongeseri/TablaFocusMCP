@@ -1,0 +1,230 @@
+{
+  "questions": [
+    {
+      "questionText": "[ABG.MP.T1.TAAL.SAM_KHALI v1] In teental, which matra is khali?",
+      "questionType": "mcq",
+      "options": ["1", "5", "9", "13"],
+      "correctIndex": 2,
+      "category": "Taal",
+      "difficulty": "beginner",
+      "sourceType": "sample",
+      "objectiveId": "ABG.MP.T1.TAAL.SAM_KHALI",
+      "board": "ABGMVM",
+      "level": "MADHYAMA_PRATHAM",
+      "paper": "THEORY_1",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[ABG.MP.T1.NOTATION.BASICS v1] Which symbol is commonly used for khali in clap-wave notation?",
+      "questionType": "mcq",
+      "options": ["X", "0", "2", "4"],
+      "correctIndex": 1,
+      "category": "Theory",
+      "difficulty": "beginner",
+      "sourceType": "sample",
+      "objectiveId": "ABG.MP.T1.NOTATION.BASICS",
+      "board": "ABGMVM",
+      "level": "MADHYAMA_PRATHAM",
+      "paper": "THEORY_1",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[ABG.MP.T1.COMP.TIHAI_MATH v1] A tihai with phrase length 8 and gap 4 has total pulses equal to:",
+      "questionType": "mcq",
+      "options": ["20", "24", "28", "32"],
+      "correctIndex": 3,
+      "category": "Composition",
+      "difficulty": "intermediate",
+      "sourceType": "sample",
+      "objectiveId": "ABG.MP.T1.COMP.TIHAI_MATH",
+      "board": "ABGMVM",
+      "level": "MADHYAMA_PRATHAM",
+      "paper": "THEORY_1",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[ABG.MP.T2.TAAL.JHAPTAL_GROUPING] Jhaptaal is grouped as:",
+      "questionType": "mcq",
+      "options": ["3+2+2+3", "2+3+2+3", "4+2+4", "5+5"],
+      "correctIndex": 1,
+      "category": "Taal",
+      "difficulty": "beginner",
+      "sourceType": "sample",
+      "objectiveId": "ABG.MP.T2.TAAL.JHAPTAL_GROUPING",
+      "board": "ABGMVM",
+      "level": "MADHYAMA_PRATHAM",
+      "paper": "THEORY_2",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[ABG.MP.T2.THEORY.DAYAN_TUNING] Assertion: Dayan is typically tuned to tonic or dominant. Reason: Pitch reference improves melodic compatibility.",
+      "questionType": "assertion_reason",
+      "options": [
+        "Both statements are true, and reason explains assertion.",
+        "Both are true, but reason does not explain assertion.",
+        "Assertion is true, reason is false.",
+        "Assertion is false, reason is true."
+      ],
+      "correctIndex": 0,
+      "category": "Theory",
+      "difficulty": "intermediate",
+      "sourceType": "sample",
+      "objectiveId": "ABG.MP.T2.THEORY.DAYAN_TUNING",
+      "board": "ABGMVM",
+      "level": "MADHYAMA_PRATHAM",
+      "paper": "THEORY_2",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[ABG.MP.P1.KAIDA.STRUCTURE] Which statement best describes qaida form?",
+      "questionType": "mcq",
+      "options": [
+        "Free-rhythm alap with no pulse",
+        "Theme and rule-bound variations",
+        "Only fixed rela passages",
+        "Only accompaniment fillers"
+      ],
+      "correctIndex": 1,
+      "category": "Composition",
+      "difficulty": "intermediate",
+      "sourceType": "sample",
+      "objectiveId": "ABG.MP.P1.KAIDA.STRUCTURE",
+      "board": "ABGMVM",
+      "level": "MADHYAMA_PRATHAM",
+      "paper": "PRACTICAL_1",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[ABG.MP.P1.TAAL.EKTAAL_MARKERS] In ektaal, how many vibhags are present?",
+      "questionType": "mcq",
+      "options": ["3", "4", "6", "8"],
+      "correctIndex": 2,
+      "category": "Taal",
+      "difficulty": "beginner",
+      "sourceType": "sample",
+      "objectiveId": "ABG.MP.P1.TAAL.EKTAAL_MARKERS",
+      "board": "ABGMVM",
+      "level": "MADHYAMA_PRATHAM",
+      "paper": "PRACTICAL_1",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[ABG.VP.T1.COMP.CHAKRADHAR_ID] A chakradhar is best identified by:",
+      "questionType": "mcq",
+      "options": [
+        "Single phrase with no repetition",
+        "Three rounds with inner repeated architecture",
+        "Any random fast composition",
+        "Only accompaniment in dadra"
+      ],
+      "correctIndex": 1,
+      "category": "Composition",
+      "difficulty": "advanced",
+      "sourceType": "sample",
+      "objectiveId": "ABG.VP.T1.COMP.CHAKRADHAR_ID",
+      "board": "ABGMVM",
+      "level": "VISHARAD_PRATHAM",
+      "paper": "THEORY_1",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[ABG.VP.T1.LAYAKARI.DOUBLE] Dugun in chatusra laya means:",
+      "questionType": "mcq",
+      "options": ["Half speed", "Same speed", "Double density", "Triplet density"],
+      "correctIndex": 2,
+      "category": "Theory",
+      "difficulty": "intermediate",
+      "sourceType": "sample",
+      "objectiveId": "ABG.VP.T1.LAYAKARI.DOUBLE",
+      "board": "ABGMVM",
+      "level": "VISHARAD_PRATHAM",
+      "paper": "THEORY_1",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[BSV.P1.TAAL.KEHERWA] Keherwa has how many matras?",
+      "questionType": "mcq",
+      "options": ["6", "7", "8", "10"],
+      "correctIndex": 2,
+      "category": "Taal",
+      "difficulty": "beginner",
+      "sourceType": "sample",
+      "objectiveId": "BSV.P1.TAAL.KEHERWA",
+      "board": "BSV",
+      "level": "PRATHAMA",
+      "paper": "THEORY_1",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[BSV.P1.THEORY.BOL_CLASSIFICATION] Which is a resonant dayan bol?",
+      "questionType": "mcq",
+      "options": ["Tin", "Kat", "Ge", "Ke"],
+      "correctIndex": 0,
+      "category": "Theory",
+      "difficulty": "beginner",
+      "sourceType": "sample",
+      "objectiveId": "BSV.P1.THEORY.BOL_CLASSIFICATION",
+      "board": "BSV",
+      "level": "PRATHAMA",
+      "paper": "THEORY_1",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[BSV.M1.COMP.TUKRA_ENDING] A tukra typically emphasizes:",
+      "questionType": "mcq",
+      "options": [
+        "Sustained drone only",
+        "Cadential impact toward sam",
+        "No relation to taal",
+        "Only bayan modulation"
+      ],
+      "correctIndex": 1,
+      "category": "Composition",
+      "difficulty": "intermediate",
+      "sourceType": "sample",
+      "objectiveId": "BSV.M1.COMP.TUKRA_ENDING",
+      "board": "BSV",
+      "level": "MADHYAMA_I",
+      "paper": "PRACTICAL_1",
+      "assessability": "direct"
+    },
+    {
+      "questionText": "[HYB.CROSS.TAAL.CYCLE_MATCH] Assertion: Taal recognition starts with cycle length. Reason: vibhag accents can be compared only after pulse count is clear.",
+      "questionType": "assertion_reason",
+      "options": [
+        "Both statements are true, and reason explains assertion.",
+        "Both are true, but reason does not explain assertion.",
+        "Assertion is true, reason is false.",
+        "Assertion is false, reason is true."
+      ],
+      "correctIndex": 0,
+      "category": "Taal",
+      "difficulty": "intermediate",
+      "sourceType": "sample",
+      "objectiveId": "HYB.CROSS.TAAL.CYCLE_MATCH",
+      "board": "HYBRID",
+      "level": "CROSS",
+      "paper": "THEORY_1",
+      "assessability": "proxy"
+    },
+    {
+      "questionText": "[HYB.CROSS.COMP.SAM_TARGET] Which check is mandatory for tihai validation?",
+      "questionType": "mcq",
+      "options": [
+        "Phrase should end before khali always",
+        "Equation and landing must resolve on sam",
+        "Only bols decide validity",
+        "Any 3 repeats are valid"
+      ],
+      "correctIndex": 1,
+      "category": "Composition",
+      "difficulty": "intermediate",
+      "sourceType": "sample",
+      "objectiveId": "HYB.CROSS.COMP.SAM_TARGET",
+      "board": "HYBRID",
+      "level": "CROSS",
+      "paper": "THEORY_1",
+      "assessability": "direct"
+    }
+  ]
+}

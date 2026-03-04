@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "compose_builder input",
+  "type": "object",
+  "required": ["taal", "form", "jati"],
+  "properties": {
+    "taal": { "type": "string" },
+    "form": { "type": "string", "enum": ["tihai", "tukra", "chakradhar", "chakradar"] },
+    "jati": { "type": "string", "enum": ["tisra", "chatusra", "khanda", "misra"] },
+    "cycles": { "type": "integer", "minimum": 1, "maximum": 12 }
+  },
+  "additionalProperties": false
+}

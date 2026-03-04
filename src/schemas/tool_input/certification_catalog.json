@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "certification_catalog input",
+  "type": "object",
+  "properties": {
+    "board": { "type": "string" },
+    "certification_level": { "type": "string" }
+  },
+  "additionalProperties": false
+}
