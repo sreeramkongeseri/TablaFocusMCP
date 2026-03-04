@@ -54,7 +54,7 @@ npm view tablafocus-mcp version dist-tags --json
 Pin to a specific version when needed:
 
 ```bash
-npx -y tablafocus-mcp@0.1.1
+npx -y tablafocus-mcp@0.1.2
 ```
 
 ### Codex CLI

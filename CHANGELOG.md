@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-03-04
+
 ### Added
 
 - `explain_taal` compatibility tool alias.

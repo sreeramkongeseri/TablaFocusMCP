@@ -1,6 +1,6 @@
 {
   "name": "tablafocus-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Universal Tabla MCP server powered by Tabla Focus content and deterministic composition engines.",
   "type": "module",
   "main": "dist/index.js",

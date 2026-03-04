@@ -8,7 +8,7 @@
     "source": "github"
   },
   "websiteUrl": "https://www.tablafocus.com/mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/sreeramkongeseri/TablaFocusMCP/main/assets/tablafocus-mcp-icon.svg",
@@ -20,7 +20,7 @@
     {
       "registryType": "npm",
       "identifier": "tablafocus-mcp",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "transport": {
         "type": "stdio"
       }
