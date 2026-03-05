@@ -11,9 +11,9 @@
   "version": "0.1.2",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/sreeramkongeseri/TablaFocusMCP/main/assets/tablafocus-mcp-icon.svg",
-      "mimeType": "image/svg+xml",
-      "sizes": ["any"]
+      "src": "https://raw.githubusercontent.com/sreeramkongeseri/TablaFocusMCP/main/assets/tablafocus-mcp-icon.png",
+      "mimeType": "image/png",
+      "sizes": ["1024x1024"]
     }
   ],
   "packages": [

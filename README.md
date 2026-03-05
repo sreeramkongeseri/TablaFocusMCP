@@ -104,7 +104,7 @@ Optional env vars:
 - `TABLA_MCP_LOG_LEVEL` (default: `info`)
 
 <p align="center">
-  <img src="assets/tablafocus-mcp-icon.svg" alt="TablaFocusMCP icon" width="420" />
+  <img src="assets/tablafocus-mcp-icon.png" alt="TablaFocusMCP icon" width="420" />
 </p>
 
 ## Try These 3 Prompts
@@ -153,12 +153,8 @@ npm start
 
 ## Documentation
 
-- [Client setup guides](docs/mcp/client-setup/)
-- [Tool list and examples](docs/mcp/tools.md)
-- [Resource list and payloads](docs/mcp/resources.md)
-- [Prompt list and usage](docs/mcp/prompts.md)
-- [Input/output schemas](docs/mcp/schemas.md)
-- [Error model](docs/mcp/error-model.md)
+- [Client setup](docs/mcp/client-setup.md)
+- [MCP reference](docs/mcp/reference.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Data provenance](docs/DATA_PROVENANCE.md)
 - [Data licensing](docs/DATA_LICENSE.md)
