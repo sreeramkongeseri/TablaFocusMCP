@@ -36,6 +36,9 @@ Alongside tools, it also exposes MCP resources (readable datasets) and prompts (
 | ----------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | `cert_prep_plan`        | Certification workflow (`catalog` -> `mock` -> `plan`) | `board`, `certification_level`, `days_per_week`, `minutes_per_day`                                                      |
 | `weekly_practice_reset` | Weekly reset workflow after missed sessions or fatigue | `goals` (semicolon-delimited), `daily_minutes`, `days_per_week`, optional `missed_days`, `completed_minutes`, `fatigue` |
+| `exam_week_plan`        | Focused 7-day exam prep workflow                       | `board`, `certification_level`, `daily_minutes`, optional `weak_areas`, `fatigue`                                      |
+| `missed_week_recovery`  | Recovery workflow after a disrupted practice week      | `goals` (semicolon-delimited), `daily_minutes`, `days_per_week`, optional `missed_days`, `completed_minutes`, `fatigue` |
+| `composition_polish`    | Iterative composition draft -> validate -> refine flow | `taal`, `form`, `jati`, optional `cycles`, optional `polish_rounds`                                                     |
 
 ## Install And Configure
 

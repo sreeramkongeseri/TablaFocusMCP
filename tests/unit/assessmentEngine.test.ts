@@ -25,5 +25,8 @@ describe('assessmentEngine', () => {
 
     expect(result.questions).toHaveLength(1);
     expect(result.answer_key[0].correct_option).toBe('C');
+    expect(result.answer_key[0].rationale.correct_reason.length).toBeGreaterThan(0);
+    expect(result.answer_key[0].rationale.incorrect_reasons).toHaveLength(3);
+    expect(result.answer_key[0].rationale.incorrect_reasons[0].reason.length).toBeGreaterThan(0);
   });
 });

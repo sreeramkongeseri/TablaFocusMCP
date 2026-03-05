@@ -79,6 +79,9 @@ describe('tool integration', () => {
 
       expect(names).toContain('cert_prep_plan');
       expect(names).toContain('weekly_practice_reset');
+      expect(names).toContain('exam_week_plan');
+      expect(names).toContain('missed_week_recovery');
+      expect(names).toContain('composition_polish');
     } finally {
       await client.close();
       await server.close();
@@ -106,6 +109,94 @@ describe('tool integration', () => {
 
       expect(first.content.text).toContain('assessment_builder');
       expect(first.content.text).toContain('practice_coach');
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
+  it('gets exam_week_plan prompt', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.getPrompt({
+        name: 'exam_week_plan',
+        arguments: {
+          board: 'ABGMVM',
+          certification_level: 'MADHYAMA_PRATHAM',
+          daily_minutes: '50',
+          weak_areas: 'kayda clarity;teental counting',
+          fatigue: 'medium',
+        },
+      });
+
+      expect(result.messages.length).toBeGreaterThan(0);
+      const first = result.messages[0];
+      if (first.content.type !== 'text') {
+        throw new Error('Expected text content from exam_week_plan prompt');
+      }
+
+      expect(first.content.text).toContain('certification_catalog');
+      expect(first.content.text).toContain('assessment_builder');
+      expect(first.content.text).toContain('practice_coach');
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
+  it('gets missed_week_recovery prompt', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.getPrompt({
+        name: 'missed_week_recovery',
+        arguments: {
+          goals: 'steady pulse;tihai endings',
+          daily_minutes: '35',
+          days_per_week: '5',
+          missed_days: '3',
+          completed_minutes: '80',
+          fatigue: 'high',
+        },
+      });
+
+      expect(result.messages.length).toBeGreaterThan(0);
+      const first = result.messages[0];
+      if (first.content.type !== 'text') {
+        throw new Error('Expected text content from missed_week_recovery prompt');
+      }
+
+      expect(first.content.text).toContain('practice_coach');
+      expect(first.content.text).toContain('assessment_builder');
+      expect(first.content.text).toContain('composition_validator');
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
+  it('gets composition_polish prompt', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.getPrompt({
+        name: 'composition_polish',
+        arguments: {
+          taal: 'teental',
+          form: 'tihai',
+          jati: 'chatusra',
+          cycles: '1',
+          polish_rounds: '2',
+        },
+      });
+
+      expect(result.messages.length).toBeGreaterThan(0);
+      const first = result.messages[0];
+      if (first.content.type !== 'text') {
+        throw new Error('Expected text content from composition_polish prompt');
+      }
+
+      expect(first.content.text).toContain('taal_catalog');
+      expect(first.content.text).toContain('compose_builder');
+      expect(first.content.text).toContain('composition_validator');
     } finally {
       await client.close();
       await server.close();
@@ -189,8 +280,24 @@ describe('tool integration', () => {
       });
 
       expect(result.isError).toBeFalsy();
-      const payload = result.structuredContent as { data: { request: { count: number } } };
+      const payload = result.structuredContent as {
+        data: {
+          request: { count: number };
+          assessment: {
+            answer_key: Array<{
+              rationale: {
+                correct_reason: string;
+                incorrect_reasons: Array<{ reason: string }>;
+              };
+            }>;
+          };
+        };
+      };
       expect(payload.data.request.count).toBe(10);
+      expect(payload.data.assessment.answer_key[0].rationale.correct_reason.length).toBeGreaterThan(0);
+      expect(payload.data.assessment.answer_key[0].rationale.incorrect_reasons.length).toBeGreaterThan(
+        0,
+      );
     } finally {
       await client.close();
       await server.close();

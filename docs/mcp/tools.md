@@ -47,7 +47,7 @@ Input schema: `src/schemas/tool_input/certification_catalog.json`
 
 ## 4) assessment_builder
 
-Purpose: build `practice_quiz` or `cert_mock` with answer key and rubric.
+Purpose: build `practice_quiz` or `cert_mock` with answer key, brief rationales, and rubric.
 
 Input schema: `src/schemas/tool_input/assessment_builder.json`
 
@@ -55,6 +55,9 @@ Notes:
 
 - `mode` is required.
 - `count` is optional (defaults to `10`).
+- Each `answer_key` item includes a `rationale` object with:
+  - `correct_reason`: why the correct option is correct.
+  - `incorrect_reasons`: brief per-option reasons for why wrong options fail.
 
 Example call:
 

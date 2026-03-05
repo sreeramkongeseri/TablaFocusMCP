@@ -31,6 +31,14 @@ export interface AssessmentResult {
     correct_option: string;
     correct_text: string;
     objective_id?: string;
+    rationale: {
+      correct_reason: string;
+      incorrect_reasons: Array<{
+        option: string;
+        option_text: string;
+        reason: string;
+      }>;
+    };
   }>;
   rubric: {
     total_marks: number;
@@ -74,11 +82,26 @@ export function buildAssessment(input: AssessmentInput): AssessmentResult {
 
   const answerKey = selected.map((q, index) => {
     const optionIndex = clampOptionIndex(q.correctIndex, q.options.length);
+    const correctText = q.options[optionIndex] ?? '';
+    const concept = inferConceptLabel(q);
+
     return {
       id: index + 1,
       correct_option: optionLabel(optionIndex),
-      correct_text: q.options[optionIndex] ?? '',
+      correct_text: correctText,
       objective_id: q.objectiveId,
+      rationale: {
+        correct_reason: buildCorrectReason(q, correctText, concept),
+        incorrect_reasons: q.options
+          .map((optionText, optionIdx) => ({
+            option: optionLabel(optionIdx),
+            option_text: optionText,
+            reason: buildIncorrectReason(optionText, correctText, concept),
+            is_correct: optionIdx === optionIndex,
+          }))
+          .filter((option) => !option.is_correct)
+          .map(({ option, option_text, reason }) => ({ option, option_text, reason })),
+      },
     };
   });
 
@@ -119,4 +142,24 @@ function clampOptionIndex(index: number, optionCount: number): number {
 
 function optionLabel(index: number): string {
   return ['A', 'B', 'C', 'D', 'E'][index] ?? 'A';
+}
+
+function inferConceptLabel(question: QuizBankQuestion): string {
+  const objectiveToken = question.objectiveId?.split('.').pop()?.trim();
+  if (objectiveToken) {
+    return objectiveToken.replace(/_/g, ' ').toLowerCase();
+  }
+  return question.category.toLowerCase();
+}
+
+function buildCorrectReason(
+  question: QuizBankQuestion,
+  correctText: string,
+  concept: string,
+): string {
+  return `"${correctText}" matches the expected ${concept} outcome for this ${question.category.toLowerCase()} question.`;
+}
+
+function buildIncorrectReason(optionText: string, correctText: string, concept: string): string {
+  return `"${optionText}" does not satisfy the expected ${concept}; "${correctText}" is the matching choice.`;
 }
