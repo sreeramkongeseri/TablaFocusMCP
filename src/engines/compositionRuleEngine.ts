@@ -1,5 +1,6 @@
 import { CompositionForm, CompositionParameters, CompositionSegment, Jati } from '../types.js';
 import { ToolError } from '../errors/model.js';
+import { toCompactLookupKey } from '../utils.js';
 
 export const JATI_PULSES: Record<Jati, number> = {
   tisra: 3,
@@ -46,15 +47,28 @@ interface Candidate {
   score: number;
 }
 
+const FORM_ALIASES: Record<string, CompositionForm> = {
+  tihai: 'tihai',
+  tihayi: 'tihai',
+  tihaai: 'tihai',
+  tukra: 'tukra',
+  tukda: 'tukra',
+  chakradhar: 'chakradhar',
+  chakraadhar: 'chakradhar',
+  chakradar: 'chakradhar',
+  chakardar: 'chakradhar',
+};
+
 export function normalizeCompositionForm(value: string): CompositionForm {
-  const normalized = value.trim().toLowerCase();
-  if (normalized === 'chakradar') {
-    return 'chakradhar';
+  const normalized = toCompactLookupKey(value);
+  const resolved = FORM_ALIASES[normalized];
+  if (resolved) {
+    return resolved;
   }
-  if (normalized === 'tihai' || normalized === 'tukra' || normalized === 'chakradhar') {
-    return normalized;
-  }
-  throw new ToolError('INVALID_INPUT', `Unsupported composition form: ${value}`);
+  throw new ToolError(
+    'INVALID_INPUT',
+    `Unsupported composition form: ${value}. Supported forms: tihai, tukra, chakradhar`,
+  );
 }
 
 export function buildComposition(input: CompositionBuildInput): CompositionBuildResult {

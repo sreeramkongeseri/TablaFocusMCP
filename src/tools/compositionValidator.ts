@@ -37,7 +37,7 @@ export function registerCompositionValidatorTool(server: McpServer, context: App
         'Validate user-entered tihai, tukra, or chakradhar structure using equation and timeline checks.',
       inputSchema: {
         taal: z.string().min(1),
-        form: z.enum(['tihai', 'tukra', 'chakradhar', 'chakradar']),
+        form: z.string().min(1),
         jati: z.enum(['tisra', 'chatusra', 'khanda', 'misra']),
         cycles: z.number().int().min(1).max(12),
         composition_input: compositionInputSchema,

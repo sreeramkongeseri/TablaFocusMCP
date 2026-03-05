@@ -139,4 +139,9 @@ describe('compositionRuleEngine', () => {
   it('normalizes chakradar alias', () => {
     expect(normalizeCompositionForm('chakradar')).toBe('chakradhar');
   });
+
+  it('normalizes spacing variants for chakradhar', () => {
+    expect(normalizeCompositionForm('chakra dhar')).toBe('chakradhar');
+    expect(normalizeCompositionForm('chakra-dar')).toBe('chakradhar');
+  });
 });

@@ -144,6 +144,26 @@ describe('tool integration', () => {
     }
   });
 
+  it('calls compose_builder with alias-tolerant inputs', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.callTool({
+        name: 'compose_builder',
+        arguments: { taal: 'teen taal', form: 'chakra dar', jati: 'chatusra', cycles: 1 },
+      });
+
+      expect(result.isError).toBeFalsy();
+      const payload = result.structuredContent as {
+        data: { request: { resolved_taal_id: string; form: string } };
+      };
+      expect(payload.data.request.resolved_taal_id).toBe('teental');
+      expect(payload.data.request.form).toBe('chakradhar');
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
   it('calls explain_taal compatibility alias', async () => {
     const { server, client } = await createHarness();
     try {

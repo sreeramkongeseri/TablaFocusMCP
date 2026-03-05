@@ -9,7 +9,13 @@ import {
   TalaEntry,
   TalaVibhag,
 } from '../types.js';
-import { normalize, parseLevelLabel, slugify } from '../utils.js';
+import {
+  expandTaalLookupKeys,
+  normalize,
+  parseLevelLabel,
+  slugify,
+  toCompactLookupKey,
+} from '../utils.js';
 
 export interface NormalizedTaal {
   taal_id: string;
@@ -43,6 +49,7 @@ export interface CertificationLevelSummary {
 export class ContentStore {
   private glossary: GlossaryEntry[] = [];
   private taals: NormalizedTaal[] = [];
+  private taalLookup = new Map<string, NormalizedTaal>();
   private quizQuestions: QuizBankQuestion[] = [];
   private boards: CertificationBoardMetadata[] = [];
 
@@ -63,6 +70,7 @@ export class ContentStore {
 
     this.glossary = glossaryRaw;
     this.taals = talasRaw.map((t) => this.normalizeTaal(t));
+    this.rebuildTaalLookup();
     this.quizQuestions = quizRaw.questions;
     this.boards = boardsRaw;
   }
@@ -105,10 +113,13 @@ export class ContentStore {
   }
 
   getTaalById(taalId: string): NormalizedTaal | undefined {
-    const normalized = slugify(taalId);
-    return this.taals.find(
-      (t) => t.taal_id === normalized || t.aliases.map(slugify).includes(normalized),
-    );
+    for (const lookupKey of expandTaalLookupKeys(taalId)) {
+      const entry = this.taalLookup.get(lookupKey);
+      if (entry) {
+        return entry;
+      }
+    }
+    return undefined;
   }
 
   listCertificationBoards(): CertificationBoardMetadata[] {
@@ -176,7 +187,24 @@ export class ContentStore {
     const board = params.board ? normalize(params.board) : undefined;
     const level = params.certificationLevel ? normalize(params.certificationLevel) : undefined;
     const category = params.category ? normalize(params.category) : undefined;
-    const taal = params.taal ? normalize(params.taal) : undefined;
+    const rawTaal = params.taal ? normalize(params.taal) : undefined;
+    const resolvedTaal = params.taal ? this.getTaalById(params.taal) : undefined;
+    const taalTokens = params.taal
+      ? Array.from(
+          new Set(
+            [
+              params.taal,
+              resolvedTaal?.taal_id,
+              resolvedTaal?.name,
+              resolvedTaal?.source_name,
+              ...(resolvedTaal?.aliases ?? []),
+            ]
+              .filter((value): value is string => Boolean(value))
+              .flatMap((value) => expandTaalLookupKeys(value))
+              .filter((value) => value.length >= 4),
+          ),
+        )
+      : [];
 
     return this.quizQuestions.filter((q) => {
       if (board && normalize(q.board ?? '') !== board) {
@@ -188,8 +216,13 @@ export class ContentStore {
       if (category && normalize(q.category ?? '') !== category) {
         return false;
       }
-      if (taal && !normalize(q.questionText).includes(taal)) {
-        return false;
+      if (params.taal) {
+        const questionTextKey = toCompactLookupKey(q.questionText);
+        const matchesAlias = taalTokens.some((token) => questionTextKey.includes(token));
+        const matchesRawText = rawTaal ? normalize(q.questionText).includes(rawTaal) : false;
+        if (!matchesAlias && !matchesRawText) {
+          return false;
+        }
       }
       return true;
     });
@@ -238,6 +271,21 @@ export class ContentStore {
       theka: raw.theka,
       description: raw.talaDescription,
     };
+  }
+
+  private rebuildTaalLookup(): void {
+    this.taalLookup.clear();
+
+    for (const taal of this.taals) {
+      const seeds = new Set<string>([taal.taal_id, taal.name, taal.source_name, ...taal.aliases]);
+      for (const seed of seeds) {
+        for (const lookupKey of expandTaalLookupKeys(seed)) {
+          if (!this.taalLookup.has(lookupKey)) {
+            this.taalLookup.set(lookupKey, taal);
+          }
+        }
+      }
+    }
   }
 
   private countBy<T>(items: T[], keyFn: (item: T) => string): Record<string, number> {

@@ -23,4 +23,24 @@ describe('contentStore', () => {
     const teental = store.getTaalById('teental');
     expect(teental?.matras).toBe(16);
   });
+
+  it('resolves common taal aliases and misspellings', async () => {
+    const store = new ContentStore({
+      dataDir: path.resolve(process.cwd(), 'data', 'samples'),
+      curatedDataDir: path.resolve(process.cwd(), 'data', 'curated'),
+      rateLimitPerMinute: 999,
+      deterministic: true,
+      logLevel: 'info',
+    });
+
+    await store.load();
+
+    expect(store.getTaalById('teen taal')?.taal_id).toBe('teental');
+    expect(store.getTaalById('teentaal')?.taal_id).toBe('teental');
+    expect(store.getTaalById('tintal')?.taal_id).toBe('teental');
+    expect(store.getTaalById('jhap tal')?.taal_id).toBe('jhaptaal');
+
+    const filtered = store.getQuestions({ taal: 'teen taal' });
+    expect(filtered.length).toBeGreaterThan(0);
+  });
 });

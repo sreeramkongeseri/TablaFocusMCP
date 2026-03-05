@@ -10,7 +10,7 @@ import { ToolError } from '../errors/model.js';
 import { Jati } from '../types.js';
 import { guarded, nowIsoDate, successResult } from '../toolRuntime.js';
 
-const formSchema = z.enum(['tihai', 'tukra', 'chakradhar', 'chakradar']);
+const formSchema = z.string().min(1);
 const jatiSchema = z.enum(['tisra', 'chatusra', 'khanda', 'misra']);
 
 export function registerComposeBuilderTool(server: McpServer, context: AppContext): void {
