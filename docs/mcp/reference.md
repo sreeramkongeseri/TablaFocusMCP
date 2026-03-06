@@ -54,16 +54,17 @@ Tool contract policy:
 
 ## Tools
 
-| Tool | Purpose | Input schema |
-| --- | --- | --- |
-| `glossary_lookup` | Lookup terms from the glossary dataset | `src/schemas/tool_input/glossary_lookup.json` |
-| `compose_builder` | Build valid deterministic `tihai`, `tukra`, `chakradhar` layouts | `src/schemas/tool_input/compose_builder.json` |
-| `certification_catalog` | Catalog certification tracks by board and level | `src/schemas/tool_input/certification_catalog.json` |
-| `assessment_builder` | Build `practice_quiz` or `cert_mock` with answer key and rubric | `src/schemas/tool_input/assessment_builder.json` |
-| `practice_coach` | Generate adaptive weekly practice plans | `src/schemas/tool_input/practice_coach.json` |
-| `taal_catalog` | Return full taal catalog or per-taal detail | `src/schemas/tool_input/taal_catalog.json` |
-| `composition_validator` | Validate composition equation and timeline | `src/schemas/tool_input/composition_validator.json` |
-| `explain_taal` | Compatibility alias for clients expecting `explain_taal` | `src/schemas/tool_input/explain_taal.json` |
+| Tool                     | Purpose                                                          | Input schema                                         |
+| ------------------------ | ---------------------------------------------------------------- | ---------------------------------------------------- |
+| `glossary_lookup`        | Lookup terms from the glossary dataset                           | `src/schemas/tool_input/glossary_lookup.json`        |
+| `compose_builder`        | Build valid deterministic `tihai`, `tukra`, `chakradhar` layouts | `src/schemas/tool_input/compose_builder.json`        |
+| `composition_transposer` | Transpose a valid composition into a new taal/jati context       | `src/schemas/tool_input/composition_transposer.json` |
+| `certification_catalog`  | Catalog certification tracks by board and level                  | `src/schemas/tool_input/certification_catalog.json`  |
+| `assessment_builder`     | Build `practice_quiz` or `cert_mock` with answer key and rubric  | `src/schemas/tool_input/assessment_builder.json`     |
+| `practice_coach`         | Generate adaptive weekly practice plans                          | `src/schemas/tool_input/practice_coach.json`         |
+| `taal_catalog`           | Return full taal catalog or per-taal detail                      | `src/schemas/tool_input/taal_catalog.json`           |
+| `composition_validator`  | Validate composition equation and timeline                       | `src/schemas/tool_input/composition_validator.json`  |
+| `explain_taal`           | Compatibility alias for clients expecting `explain_taal`         | `src/schemas/tool_input/explain_taal.json`           |
 
 ## Resources
 
@@ -74,22 +75,22 @@ Resource envelope fields:
 - `source`
 - `data`
 
-| Resource URI | Purpose | Key payload fields |
-| --- | --- | --- |
-| `tabla://glossary` | Expose full glossary dataset | `data.total_entries`, `data.categories`, `data.entries` |
-| `tabla://taals` | Expose normalized taal catalog | `data.total_taals`, `data.taals` |
-| `tabla://certification-boards` | Expose curated board metadata and references | `data.total_boards`, `data.boards` |
-| `tabla://certification-level-summaries` | Expose question-bank-derived board/level summaries | `data.total_levels`, `data.summaries` |
+| Resource URI                            | Purpose                                            | Key payload fields                                      |
+| --------------------------------------- | -------------------------------------------------- | ------------------------------------------------------- |
+| `tabla://glossary`                      | Expose full glossary dataset                       | `data.total_entries`, `data.categories`, `data.entries` |
+| `tabla://taals`                         | Expose normalized taal catalog                     | `data.total_taals`, `data.taals`                        |
+| `tabla://certification-boards`          | Expose curated board metadata and references       | `data.total_boards`, `data.boards`                      |
+| `tabla://certification-level-summaries` | Expose question-bank-derived board/level summaries | `data.total_levels`, `data.summaries`                   |
 
 ## Prompts
 
-| Prompt | Purpose | Required arguments |
-| --- | --- | --- |
-| `cert_prep_plan` | Certification prep workflow (`catalog` -> `mock` -> `plan`) | `board`, `certification_level`, `days_per_week`, `minutes_per_day` |
-| `weekly_practice_reset` | Rebuild a weekly plan after misses/fatigue | `goals`, `daily_minutes`, `days_per_week` |
-| `exam_week_plan` | Focused 7-day prep workflow | `board`, `certification_level`, `daily_minutes` |
-| `missed_week_recovery` | Recovery workflow after disrupted week | `goals`, `daily_minutes`, `days_per_week` |
-| `composition_polish` | Iterative draft -> validate -> refine composition flow | `taal`, `form`, `jati` |
+| Prompt                  | Purpose                                                     | Required arguments                                                 |
+| ----------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------ |
+| `cert_prep_plan`        | Certification prep workflow (`catalog` -> `mock` -> `plan`) | `board`, `certification_level`, `days_per_week`, `minutes_per_day` |
+| `weekly_practice_reset` | Rebuild a weekly plan after misses/fatigue                  | `goals`, `daily_minutes`, `days_per_week`                          |
+| `exam_week_plan`        | Focused 7-day prep workflow                                 | `board`, `certification_level`, `daily_minutes`                    |
+| `missed_week_recovery`  | Recovery workflow after disrupted week                      | `goals`, `daily_minutes`, `days_per_week`                          |
+| `composition_polish`    | Iterative draft -> validate -> refine composition flow      | `taal`, `form`, `jati`                                             |
 
 ## Schemas
 
@@ -97,6 +98,7 @@ Input schemas:
 
 - `src/schemas/tool_input/glossary_lookup.json`
 - `src/schemas/tool_input/compose_builder.json`
+- `src/schemas/tool_input/composition_transposer.json`
 - `src/schemas/tool_input/certification_catalog.json`
 - `src/schemas/tool_input/assessment_builder.json`
 - `src/schemas/tool_input/practice_coach.json`

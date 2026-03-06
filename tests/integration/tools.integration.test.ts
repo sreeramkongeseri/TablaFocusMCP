@@ -255,6 +255,53 @@ describe('tool integration', () => {
     }
   });
 
+  it('calls composition_transposer with alias-tolerant source inputs', async () => {
+    const { server, client } = await createHarness();
+    try {
+      const result = await client.callTool({
+        name: 'composition_transposer',
+        arguments: {
+          source: {
+            taal: 'teen taal',
+            form: 'tihayi',
+            jati: 'chatusra',
+            cycles: 1,
+            composition_input: { P: 16, G: 8 },
+          },
+          target: {
+            taal: 'rupak',
+            jati: 'chatusra',
+          },
+        },
+      });
+
+      expect(result.isError).toBeFalsy();
+      const payload = result.structuredContent as {
+        data: {
+          request: {
+            source: { resolved_taal_id: string; form: string };
+            target: { resolved_taal_id: string; cycles: number | null };
+          };
+          transposition: {
+            composition: { form: string; cycles: number };
+            source_validation: { is_valid: boolean };
+          };
+        };
+      };
+
+      expect(payload.data.request.source.resolved_taal_id).toBe('teental');
+      expect(payload.data.request.source.form).toBe('tihai');
+      expect(payload.data.request.target.resolved_taal_id).toBe('rupak');
+      expect(payload.data.request.target.cycles).toBeNull();
+      expect(payload.data.transposition.source_validation.is_valid).toBe(true);
+      expect(payload.data.transposition.composition.form).toBe('tihai');
+      expect(payload.data.transposition.composition.cycles).toBeGreaterThanOrEqual(1);
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
   it('calls explain_taal compatibility alias', async () => {
     const { server, client } = await createHarness();
     try {
@@ -294,10 +341,12 @@ describe('tool integration', () => {
         };
       };
       expect(payload.data.request.count).toBe(10);
-      expect(payload.data.assessment.answer_key[0].rationale.correct_reason.length).toBeGreaterThan(0);
-      expect(payload.data.assessment.answer_key[0].rationale.incorrect_reasons.length).toBeGreaterThan(
+      expect(payload.data.assessment.answer_key[0].rationale.correct_reason.length).toBeGreaterThan(
         0,
       );
+      expect(
+        payload.data.assessment.answer_key[0].rationale.incorrect_reasons.length,
+      ).toBeGreaterThan(0);
     } finally {
       await client.close();
       await server.close();

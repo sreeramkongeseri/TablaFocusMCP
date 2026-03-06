@@ -4,6 +4,7 @@
 
 - `src/schemas/tool_input/glossary_lookup.json`
 - `src/schemas/tool_input/compose_builder.json`
+- `src/schemas/tool_input/composition_transposer.json`
 - `src/schemas/tool_input/certification_catalog.json`
 - `src/schemas/tool_input/assessment_builder.json`
 - `src/schemas/tool_input/practice_coach.json`

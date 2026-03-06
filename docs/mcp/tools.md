@@ -39,13 +39,44 @@ Example call:
 }
 ```
 
-## 3) certification_catalog
+## 3) composition_transposer
+
+Purpose: transpose a valid `tihai`, `tukra`, or `chakradhar` into a new taal/jati context while preserving structural ratios as closely as possible.
+
+Input schema: `src/schemas/tool_input/composition_transposer.json`
+
+Example call:
+
+```json
+{
+  "source": {
+    "taal": "teental",
+    "form": "tihai",
+    "jati": "chatusra",
+    "cycles": 1,
+    "composition_input": { "P": 16, "G": 8 }
+  },
+  "target": {
+    "taal": "rupak",
+    "jati": "chatusra"
+  },
+  "preserve_mode": "shape_ratio"
+}
+```
+
+Notes:
+
+- Source composition must already be valid for its source taal/jati/cycle context.
+- v1 preserves structural math, not bols or gharana-specific phrasing.
+- If `target.cycles` is omitted, the tool searches `1..12` cycles for the closest valid fit.
+
+## 4) certification_catalog
 
 Purpose: catalog certification tracks by board and level.
 
 Input schema: `src/schemas/tool_input/certification_catalog.json`
 
-## 4) assessment_builder
+## 5) assessment_builder
 
 Purpose: build `practice_quiz` or `cert_mock` with answer key, brief rationales, and rubric.
 
@@ -70,25 +101,25 @@ Example call:
 }
 ```
 
-## 5) practice_coach
+## 6) practice_coach
 
 Purpose: generate practical adaptive weekly plan from realistic availability.
 
 Input schema: `src/schemas/tool_input/practice_coach.json`
 
-## 6) taal_catalog
+## 7) taal_catalog
 
 Purpose: full taal catalog or per-taal detail.
 
 Input schema: `src/schemas/tool_input/taal_catalog.json`
 
-## 7) composition_validator
+## 8) composition_validator
 
 Purpose: validate user-entered composition equation and timeline.
 
 Input schema: `src/schemas/tool_input/composition_validator.json`
 
-## 8) explain_taal (compatibility)
+## 9) explain_taal (compatibility)
 
 Purpose: compatibility alias for clients expecting `explain_taal`; uses canonical `taal_catalog` details.
 

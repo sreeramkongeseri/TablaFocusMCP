@@ -8,6 +8,7 @@ import { registerResources } from './resources/registerResources.js';
 import { registerAssessmentBuilderTool } from './tools/assessmentBuilder.js';
 import { registerCertificationCatalogTool } from './tools/certificationCatalog.js';
 import { registerComposeBuilderTool } from './tools/composeBuilder.js';
+import { registerCompositionTransposerTool } from './tools/compositionTransposer.js';
 import { registerCompositionValidatorTool } from './tools/compositionValidator.js';
 import { registerExplainTaalTool } from './tools/explainTaal.js';
 import { registerGlossaryLookupTool } from './tools/glossaryLookup.js';
@@ -50,6 +51,7 @@ export function buildServer(context: AppContext): McpServer {
 
   registerGlossaryLookupTool(server, context);
   registerComposeBuilderTool(server, context);
+  registerCompositionTransposerTool(server, context);
   registerCertificationCatalogTool(server, context);
   registerAssessmentBuilderTool(server, context);
   registerPracticeCoachTool(server, context);

@@ -28,7 +28,7 @@
 ## Tool families
 
 - Reference tools: `glossary_lookup`, `taal_catalog`, `explain_taal`.
-- Composition tools: `compose_builder`, `composition_validator`.
+- Composition tools: `compose_builder`, `composition_transposer`, `composition_validator`.
 - Curriculum/assessment tools: `certification_catalog`, `assessment_builder`.
 - Planning tool: `practice_coach`.
 

@@ -39,12 +39,63 @@ export interface CompositionValidationResult {
   };
 }
 
+export interface CompositionTranspositionInput {
+  source: {
+    matras: number;
+    form: CompositionForm;
+    jati: Jati;
+    cycles: number;
+    parameters: CompositionParameters;
+    segments?: CompositionSegment[];
+  };
+  target: {
+    matras: number;
+    jati: Jati;
+    cycles?: number;
+  };
+  preserve_mode?: 'shape_ratio';
+}
+
+export interface CompositionPreservationReport {
+  source_detected_form: string;
+  target_detected_form: string;
+  exact_subtype_match: boolean;
+  ratio_distance: number;
+  parameter_ratio_deltas: Record<string, number>;
+}
+
+export interface CompositionTranspositionChoice {
+  score: number;
+  scale_factor: number;
+  composition: CompositionBuildResult;
+  preservation_report: CompositionPreservationReport;
+}
+
+export interface CompositionTranspositionResult {
+  preserve_mode: 'shape_ratio';
+  source_validation: CompositionValidationResult;
+  source_composition: CompositionBuildResult;
+  composition: CompositionBuildResult;
+  scale_factor: number;
+  preservation_report: CompositionPreservationReport;
+  alternatives: CompositionTranspositionChoice[];
+  warnings: string[];
+}
+
 interface Candidate {
   P: number;
   G: number;
   M: number;
   g: number;
   score: number;
+}
+
+interface ScoredCompositionBuildResult extends CompositionBuildResult {
+  candidate_score: number;
+}
+
+interface RankedTranspositionChoice extends CompositionTranspositionChoice {
+  candidate_score: number;
 }
 
 const FORM_ALIASES: Record<string, CompositionForm> = {
@@ -72,10 +123,7 @@ export function normalizeCompositionForm(value: string): CompositionForm {
 }
 
 export function buildComposition(input: CompositionBuildInput): CompositionBuildResult {
-  const pulsesPerMatra = JATI_PULSES[input.jati];
-  const totalPulses = input.matras * input.cycles * pulsesPerMatra;
-
-  const candidates = enumerateCandidates(input.form, totalPulses, pulsesPerMatra);
+  const candidates = listCandidateBuilds(input);
   if (candidates.length === 0) {
     throw new ToolError(
       'VALIDATION_FAILED',
@@ -89,28 +137,104 @@ export function buildComposition(input: CompositionBuildInput): CompositionBuild
     );
   }
 
-  candidates.sort((a, b) => a.score - b.score || a.P - b.P || a.G - b.G);
-  const best = candidates[0];
+  return toCompositionBuildResult(candidates[0]);
+}
 
-  const parameters: Required<CompositionParameters> = {
-    P: best.P,
-    G: best.G,
-    M: best.M,
-    g: best.g,
-  };
+export function transposeComposition(
+  input: CompositionTranspositionInput,
+): CompositionTranspositionResult {
+  const preserveMode = input.preserve_mode ?? 'shape_ratio';
+  if (preserveMode !== 'shape_ratio') {
+    throw new ToolError(
+      'INVALID_INPUT',
+      `Unsupported preserve_mode: ${preserveMode}. Supported modes: shape_ratio`,
+    );
+  }
 
-  const segments = buildSegments(input.form, parameters, pulsesPerMatra);
+  const sourceValidation = validateComposition({
+    matras: input.source.matras,
+    form: input.source.form,
+    jati: input.source.jati,
+    cycles: input.source.cycles,
+    parameters: input.source.parameters,
+    segments: input.source.segments,
+  });
+
+  if (!sourceValidation.is_valid) {
+    throw new ToolError('VALIDATION_FAILED', 'Source composition is not valid for transposition', {
+      reasons: sourceValidation.reasons,
+      checks: sourceValidation.checks,
+    });
+  }
+
+  const sourcePulsesPerMatra = JATI_PULSES[input.source.jati];
+  const sourceComposition = materializeComposition({
+    form: input.source.form,
+    cycles: input.source.cycles,
+    pulsesPerMatra: sourcePulsesPerMatra,
+    totalPulses: sourceValidation.total_pulses,
+    parameters: input.source.parameters,
+    segments: input.source.segments,
+  });
+
+  const cyclesToSearch = input.target.cycles
+    ? [input.target.cycles]
+    : Array.from({ length: 12 }, (_, index) => index + 1);
+
+  const sourceRatios = computeParameterRatios(
+    input.source.form,
+    sourceComposition.parameters,
+    sourceComposition.total_pulses,
+  );
+
+  const rankedChoices = cyclesToSearch
+    .flatMap((cycles) =>
+      listCandidateBuilds({
+        matras: input.target.matras,
+        form: input.source.form,
+        jati: input.target.jati,
+        cycles,
+      }),
+    )
+    .map((candidate) =>
+      rankTranspositionChoice(
+        input.source.form,
+        sourceComposition,
+        sourceRatios,
+        candidate,
+        Boolean(input.target.cycles),
+      ),
+    )
+    .sort(
+      (a, b) =>
+        a.score - b.score ||
+        a.composition.cycles - b.composition.cycles ||
+        a.candidate_score - b.candidate_score,
+    );
+
+  if (rankedChoices.length === 0) {
+    throw new ToolError(
+      'VALIDATION_FAILED',
+      'No valid target composition could be found for the requested transposition',
+      {
+        form: input.source.form,
+        target_jati: input.target.jati,
+        target_cycles: input.target.cycles ?? null,
+      },
+    );
+  }
+
+  const [primary, ...rest] = rankedChoices;
 
   return {
-    form: input.form,
-    equation_template: equationTemplate(input.form),
-    equation_instantiated: equationInstantiation(input.form, parameters, totalPulses),
-    total_pulses: totalPulses,
-    pulses_per_matra: pulsesPerMatra,
-    cycles: input.cycles,
-    parameters,
-    detected_form: detectForm(input.form, parameters),
-    segments,
+    preserve_mode: preserveMode,
+    source_validation: sourceValidation,
+    source_composition: toCompositionBuildResult(sourceComposition),
+    composition: primary.composition,
+    scale_factor: primary.scale_factor,
+    preservation_report: primary.preservation_report,
+    alternatives: rest.slice(0, 4).map(toTranspositionChoice),
+    warnings: buildTranspositionWarnings(sourceComposition, primary, Boolean(input.target.cycles)),
   };
 }
 
@@ -234,6 +358,24 @@ function enumerateCandidates(form: CompositionForm, T: number, minUnit: number):
   return candidates;
 }
 
+function listCandidateBuilds(input: CompositionBuildInput): ScoredCompositionBuildResult[] {
+  const pulsesPerMatra = JATI_PULSES[input.jati];
+  const totalPulses = input.matras * input.cycles * pulsesPerMatra;
+
+  return enumerateCandidates(input.form, totalPulses, pulsesPerMatra)
+    .sort((a, b) => a.score - b.score || a.P - b.P || a.G - b.G || a.M - b.M || a.g - b.g)
+    .map((candidate) =>
+      materializeComposition({
+        form: input.form,
+        cycles: input.cycles,
+        pulsesPerMatra,
+        totalPulses,
+        parameters: candidate,
+        candidateScore: candidate.score,
+      }),
+    );
+}
+
 function computeExpected(
   form: CompositionForm,
   params: { P: number; G: number; M: number; g: number },
@@ -262,6 +404,180 @@ function detectForm(form: CompositionForm, params: Required<CompositionParameter
     return 'simple_damdar';
   }
   return 'asymmetric';
+}
+
+function materializeComposition(params: {
+  form: CompositionForm;
+  cycles: number;
+  pulsesPerMatra: number;
+  totalPulses: number;
+  parameters: CompositionParameters;
+  segments?: CompositionSegment[];
+  candidateScore?: number;
+}): ScoredCompositionBuildResult {
+  const normalizedParameters = normalizeParametersForForm(params.form, params.parameters);
+
+  return {
+    form: params.form,
+    equation_template: equationTemplate(params.form),
+    equation_instantiated: equationInstantiation(
+      params.form,
+      normalizedParameters,
+      params.totalPulses,
+    ),
+    total_pulses: params.totalPulses,
+    pulses_per_matra: params.pulsesPerMatra,
+    cycles: params.cycles,
+    parameters: normalizedParameters,
+    detected_form: detectForm(params.form, normalizedParameters),
+    segments:
+      params.segments && params.segments.length > 0
+        ? params.segments
+        : buildSegments(params.form, normalizedParameters, params.pulsesPerMatra),
+    candidate_score: params.candidateScore ?? 0,
+  };
+}
+
+function toCompositionBuildResult(
+  build: CompositionBuildResult | ScoredCompositionBuildResult,
+): CompositionBuildResult {
+  if (!('candidate_score' in build)) {
+    return build;
+  }
+
+  const { candidate_score, ...result } = build;
+  void candidate_score;
+  return result;
+}
+
+function normalizeParametersForForm(
+  form: CompositionForm,
+  parameters: CompositionParameters,
+): Required<CompositionParameters> {
+  if (form === 'tihai') {
+    return {
+      P: parameters.P ?? 0,
+      G: parameters.G ?? 0,
+      M: 0,
+      g: 0,
+    };
+  }
+
+  if (form === 'tukra') {
+    return {
+      P: parameters.P ?? 0,
+      G: parameters.G ?? 0,
+      M: parameters.M ?? 0,
+      g: 0,
+    };
+  }
+
+  return {
+    P: parameters.P ?? 0,
+    G: parameters.G ?? 0,
+    M: 0,
+    g: parameters.g ?? 0,
+  };
+}
+
+function relevantParameterKeys(
+  form: CompositionForm,
+): Array<keyof Required<CompositionParameters>> {
+  if (form === 'tihai') {
+    return ['P', 'G'];
+  }
+  if (form === 'tukra') {
+    return ['M', 'P', 'G'];
+  }
+  return ['P', 'g', 'G'];
+}
+
+function computeParameterRatios(
+  form: CompositionForm,
+  parameters: Required<CompositionParameters>,
+  totalPulses: number,
+): Record<string, number> {
+  return relevantParameterKeys(form).reduce<Record<string, number>>((acc, key) => {
+    acc[key] = roundMetric(parameters[key] / Math.max(1, totalPulses));
+    return acc;
+  }, {});
+}
+
+function rankTranspositionChoice(
+  form: CompositionForm,
+  sourceComposition: ScoredCompositionBuildResult,
+  sourceRatios: Record<string, number>,
+  candidate: ScoredCompositionBuildResult,
+  exactCyclesRequested: boolean,
+): RankedTranspositionChoice {
+  const candidateRatios = computeParameterRatios(
+    form,
+    candidate.parameters,
+    candidate.total_pulses,
+  );
+  const parameterRatioDeltas = relevantParameterKeys(form).reduce<Record<string, number>>(
+    (acc, key) => {
+      acc[key] = roundMetric(Math.abs((sourceRatios[key] ?? 0) - (candidateRatios[key] ?? 0)));
+      return acc;
+    },
+    {},
+  );
+
+  const ratioDistance = roundMetric(
+    Object.values(parameterRatioDeltas).reduce((sum, delta) => sum + delta, 0),
+  );
+  const subtypePenalty = candidate.detected_form === sourceComposition.detected_form ? 0 : 0.35;
+  const cyclePenalty = exactCyclesRequested ? 0 : Math.max(0, candidate.cycles - 1) * 0.01;
+  const heuristicPenalty =
+    roundMetric(candidate.candidate_score / Math.max(1, candidate.total_pulses)) * 0.001;
+
+  return {
+    score: roundMetric(ratioDistance + subtypePenalty + cyclePenalty + heuristicPenalty),
+    scale_factor: roundMetric(candidate.total_pulses / Math.max(1, sourceComposition.total_pulses)),
+    composition: toCompositionBuildResult(candidate),
+    preservation_report: {
+      source_detected_form: sourceComposition.detected_form,
+      target_detected_form: candidate.detected_form,
+      exact_subtype_match: sourceComposition.detected_form === candidate.detected_form,
+      ratio_distance: ratioDistance,
+      parameter_ratio_deltas: parameterRatioDeltas,
+    },
+    candidate_score: candidate.candidate_score,
+  };
+}
+
+function toTranspositionChoice(choice: RankedTranspositionChoice): CompositionTranspositionChoice {
+  const { candidate_score, ...result } = choice;
+  void candidate_score;
+  return result;
+}
+
+function buildTranspositionWarnings(
+  sourceComposition: CompositionBuildResult,
+  choice: RankedTranspositionChoice,
+  exactCyclesRequested: boolean,
+): string[] {
+  const warnings: string[] = [];
+
+  if (!choice.preservation_report.exact_subtype_match) {
+    warnings.push(
+      `Subtype changed from ${choice.preservation_report.source_detected_form} to ${choice.preservation_report.target_detected_form} to keep the target composition valid.`,
+    );
+  }
+
+  if (!exactCyclesRequested && choice.composition.cycles !== sourceComposition.cycles) {
+    warnings.push(
+      `Selected ${choice.composition.cycles} target cycle(s) instead of source ${sourceComposition.cycles} cycle(s) for the closest structural fit.`,
+    );
+  }
+
+  if (choice.preservation_report.ratio_distance > 0.15) {
+    warnings.push(
+      'Relative phrase and gap proportions shifted materially to preserve a valid landing on sam in the target context.',
+    );
+  }
+
+  return warnings;
 }
 
 function buildSegments(
@@ -359,4 +675,8 @@ function equationInstantiation(
 
 function pulseToBeat(pulse: number, pulsesPerMatra: number): number {
   return Number(((pulse - 1) / pulsesPerMatra + 1).toFixed(3));
+}
+
+function roundMetric(value: number): number {
+  return Number(value.toFixed(6));
 }

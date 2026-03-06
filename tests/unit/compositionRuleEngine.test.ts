@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildComposition,
   normalizeCompositionForm,
+  transposeComposition,
   validateComposition,
 } from '../../src/engines/compositionRuleEngine.js';
 
@@ -143,5 +144,85 @@ describe('compositionRuleEngine', () => {
   it('normalizes spacing variants for chakradhar', () => {
     expect(normalizeCompositionForm('chakra dhar')).toBe('chakradhar');
     expect(normalizeCompositionForm('chakra-dar')).toBe('chakradhar');
+  });
+
+  it('transposes a valid composition into a new taal while preserving subtype when possible', () => {
+    const result = transposeComposition({
+      source: {
+        matras: 12,
+        form: 'tihai',
+        jati: 'chatusra',
+        cycles: 1,
+        parameters: { P: 16, G: 0 },
+      },
+      target: {
+        matras: 6,
+        jati: 'chatusra',
+        cycles: 1,
+      },
+    });
+
+    expect(result.source_validation.is_valid).toBe(true);
+    expect(result.composition.form).toBe('tihai');
+    expect(result.preservation_report.exact_subtype_match).toBe(true);
+    expect(result.preservation_report.source_detected_form).toBe('bedam');
+    expect(result.preservation_report.target_detected_form).toBe('bedam');
+
+    const validation = validateComposition({
+      matras: 6,
+      form: 'tihai',
+      jati: 'chatusra',
+      cycles: result.composition.cycles,
+      parameters: result.composition.parameters,
+      segments: result.composition.segments,
+    });
+
+    expect(validation.is_valid).toBe(true);
+  });
+
+  it('searches target cycles when cycles are omitted during transposition', () => {
+    const source = buildComposition({
+      matras: 16,
+      form: 'tihai',
+      jati: 'chatusra',
+      cycles: 1,
+    });
+
+    const result = transposeComposition({
+      source: {
+        matras: 16,
+        form: 'tihai',
+        jati: 'chatusra',
+        cycles: 1,
+        parameters: source.parameters,
+      },
+      target: {
+        matras: 7,
+        jati: 'chatusra',
+      },
+    });
+
+    expect(result.composition.cycles).toBeGreaterThanOrEqual(1);
+    expect(result.composition.cycles).toBeLessThanOrEqual(12);
+    expect(result.alternatives.length).toBeGreaterThan(0);
+  });
+
+  it('rejects invalid source compositions during transposition', () => {
+    expect(() =>
+      transposeComposition({
+        source: {
+          matras: 16,
+          form: 'tihai',
+          jati: 'chatusra',
+          cycles: 1,
+          parameters: { P: 2, G: 2 },
+        },
+        target: {
+          matras: 7,
+          jati: 'chatusra',
+          cycles: 1,
+        },
+      }),
+    ).toThrowError(/Source composition is not valid/);
   });
 });

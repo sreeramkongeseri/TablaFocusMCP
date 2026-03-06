@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "composition_transposer input",
+  "type": "object",
+  "required": ["source", "target"],
+  "properties": {
+    "source": {
+      "type": "object",
+      "required": ["taal", "form", "jati", "cycles", "composition_input"],
+      "properties": {
+        "taal": { "type": "string" },
+        "form": {
+          "type": "string",
+          "description": "Composition form. Canonical values are tihai, tukra, chakradhar; common aliases/spacing variants are accepted."
+        },
+        "jati": { "type": "string", "enum": ["tisra", "chatusra", "khanda", "misra"] },
+        "cycles": { "type": "integer", "minimum": 1, "maximum": 12 },
+        "composition_input": {
+          "type": "object",
+          "properties": {
+            "P": { "type": "integer", "minimum": 0 },
+            "G": { "type": "integer", "minimum": 0 },
+            "M": { "type": "integer", "minimum": 0 },
+            "g": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "required": ["taal", "jati"],
+      "properties": {
+        "taal": { "type": "string" },
+        "jati": { "type": "string", "enum": ["tisra", "chatusra", "khanda", "misra"] },
+        "cycles": { "type": "integer", "minimum": 1, "maximum": 12 }
+      },
+      "additionalProperties": false
+    },
+    "preserve_mode": { "type": "string", "enum": ["shape_ratio"] }
+  },
+  "additionalProperties": false
+}
